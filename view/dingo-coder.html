@@ -1,0 +1,49 @@
+<link rel="import" href="./vendor/polymer/polymer.html">
+<polymer-element name="dingo-coder" attributes="html css js icon title layout">
+    <template>
+        <link rel="stylesheet" type="text/css" href="./css/dingo-coder.css">
+        <link rel="stylesheet" type="text/css" href="./vendor/codemirror/theme/monokai.css">
+        <div id="editor">
+            <div id="header">
+                <a class="item"><img src="{{icon}}" id="logo"></a>
+                <a class="item" id="title">{{title}}</a>
+                <div id="header-panel-toggles">
+                    <img src="./img/header_text.svg"  class="mode active">
+                    <img src="./img/header_code.svg" class="iframeread active">
+                    <img src="./img/header_render.svg" class="coderead active">
+                </div>
+                <div id="toggle-full-screen"></div>
+            </div>
+            <div id="content">
+                <div id="code-panel" class="panel active codepanel">
+                    <div id="mode-tabs">
+                        <div class="mode-tab active">
+                            HTML<div class="arrow-up arrow-js"></div>
+                        </div>
+                        <div class="mode-tab">
+                            CSS<div class="arrow-up arrow-html"></div>
+                        </div>
+                        <div class="mode-tab">
+                            JS<div class="arrow-up arrow-css"></div>
+                        </div>
+                    </div>
+                    <div id="code-editor">
+                        <textarea id="codehtml"></textarea> 
+                        <textarea id="codecss"></textarea>
+                        <textarea id="codejs"></textarea> 
+                    </div>
+                </div>
+                <div id="render-panel" class="panel active renderpanel">
+                    <div id="renderer-container"></div>
+                </div>     
+            </div>
+        </div>
+    </template>
+    <script src="./vendor/jquery/dist/jquery.min.js"></script>
+    <script src="./vendor/codemirror/lib/codemirror.js"></script>
+    <script src="./vendor/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="./vendor/codemirror/mode/xml/xml.js"></script>
+    <script src="./vendor/codemirror/mode/javascript/javascript.js"></script>
+    <script src="./vendor/codemirror/mode/css/css.js"></script>
+    <script src="./module/coder.js"></script>
+</polymer-element>

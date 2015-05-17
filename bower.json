@@ -1,0 +1,29 @@
+{
+  "name": "dingo-coder",
+  "version": "0.1.2",
+  "author": {
+    "name": "Forest"
+  },
+  "authors": [
+    "wh1100717 <me@emptystack.net>",
+    "murielt <yulu.tyl@alibaba-inc.com>"
+  ],
+  "main": "build/dingo-coder.html",
+  "description": "Web Coder && HTML Preview with Web Components",
+  "license": "MIT",
+  "keywords": [
+    "web-components",
+    "coder",
+    "polymer"
+  ],
+  "ignore": [
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "codemirror": "~5.2.0",
+    "polymer": "Polymer/polymer#^0.5",
+    "webcomponentsjs": "~0.6.1",
+    "jquery": "~2.1.4"
+  }
+}
