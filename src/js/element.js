@@ -10,6 +10,7 @@ define(function(require, exports, module) {
       html: "",
       css: "",
       js: "",
+      velocity: "",
       icon: "/img/logo.png",
       title: "Dingo Coder",
       layout: 1,
@@ -24,6 +25,9 @@ define(function(require, exports, module) {
       },
       jsChanged: function(oldVal, newVal) {
         return this.editor.set_editor("js", newVal);
+      },
+      velocityChanged: function(oldVal, newVal) {
+        return this.editor.set_editor("velocity", newVal);
       },
       layoutChanged: function(oldVal, newVal) {
         return this.editor.set_layout();

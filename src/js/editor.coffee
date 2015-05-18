@@ -5,9 +5,8 @@ define (require, exports, module) ->
     require("codemirror/mode/htmlmixed/htmlmixed")
     require("codemirror/mode/css/css")
     require("codemirror/mode/javascript/javascript")
-    html = require("../module/prettify/html")
-    js = require("../module/prettify/js")
-    window.beautify = require("../module/beautify/index")
+    require("codemirror/mode/velocity/velocity")
+    beautify = require("../module/beautify/index")
 
     class Editor
 
@@ -15,7 +14,6 @@ define (require, exports, module) ->
             @container = $(@container)
             @ifr_init()
             @editor_init()
-            @lightdom_init()
             @event_bind()
 
         ifr_init: ->
@@ -41,46 +39,37 @@ define (require, exports, module) ->
             return
 
         editor_init: ->
-            @js_editor = CodeMirror.fromTextArea @container.find("#codejs")[0], {
-                theme: "monokai"
-                lineNumbers: true
-                matchBrackets: true
-                mode: "text/javascript"
-            }
-            @css_editor = CodeMirror.fromTextArea @container.find("#codecss")[0], {
-                theme: "monokai"
-                lineNumbers: true
-                matchBrackets: true
-                mode: "text/css"
-            }
-            @html_editor = CodeMirror.fromTextArea @container.find("#codehtml")[0], {
-                theme: "monokai"
-                lineNumbers: true
-                matchBrackets: true
-                mode: "text/html"
-            }
-            return
-
-        code_format: (type, content) ->
-            content = content.trim()
-            switch type
-                when "html" then beautify.html_beautify(content)
-                when "css" then beautify.css_beautify(content)
-                when "js" then beautify.js_beautify(content)
-
-        lightdom_init: ->
             self = @
             window.codeList = $("<div>#{@attrs.innerHTML}</div>")
             codeList.find("textarea").each ->
                 code_type = $(@).attr("code")
+                div = document.createElement("textarea")
+                div.id = "code" + code_type
+                self.container.find("#code-editor").append(div)
+                self["#{code_type}_editor"] = CodeMirror.fromTextArea self.container.find("#" + div.id)[0], {
+                    theme: "monokai"
+                    lineNumbers: true
+                    matchBrackets: true
+                    mode: "text/" + code_type
+                }
                 code_content = $(@).val()
                 code_content = self.code_format(code_type, code_content)
-                window.editor = self["#{code_type}_editor"]
+                console.log code_type, code_content
+                self.attrs.setAttribute(code_type, code_content)
+            return
+
+        code_format: (type, content) ->
+            content = content.trim()
+            console.log type
+            switch type
+                when "html" then content = beautify.html_beautify(content)
+                when "css" then content = beautify.css_beautify(content)
+                when "js" then content = beautify.js_beautify(content)
+            return content
 
 
-
-
-        set_editor: (type, val) -> @["#{type}_editor"].getDoc().setValue(val)
+        set_editor: (type, val) ->
+            @["#{type}_editor"].getDoc().setValue(val)
 
         set_layout: ->
             @container.find(".CodeMirror").removeClass("expansiondown expansionup")
@@ -116,6 +105,7 @@ define (require, exports, module) ->
                 self.container.find(".CodeMirror").eq(index).show()
             @css_editor.on "change", => @ifr_refresh()
             @html_editor.on "change", => @ifr_refresh()
+            @velocity_editor.on "change", => @ifr_refresh()
             @js_editor.on "change", =>
                 clearTimeout(@timeout)
                 @timeout = setTimeout(=>

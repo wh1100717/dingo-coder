@@ -11,6 +11,7 @@ define (require, exports, module) ->
             html: ""
             css: ""
             js: ""
+            velocity: ""
             icon:"/img/logo.png"
             title: "Dingo Coder"
             layout: 1
@@ -18,7 +19,9 @@ define (require, exports, module) ->
             htmlChanged: (oldVal, newVal) -> @editor.set_editor("html", newVal)
             cssChanged: (oldVal, newVal) -> @editor.set_editor("css", newVal)
             jsChanged: (oldVal, newVal) -> @editor.set_editor("js", newVal)
+            velocityChanged: (oldVal, newVal) ->@editor.set_editor("velocity", newVal)
             layoutChanged: (oldVal, newVal) -> @editor.set_layout()
+           
         }
 
  
