@@ -1,18 +1,10 @@
-do ->
+define (require, exports, module) ->
+    "use strict"
 
-    Polymer "dingo-coder", {
-        html: ""
-        css: ""
-        js: ""
-        icon:"/img/logo.png"
-        title: "Dingo Coder"
-        layout: 1
-        ready: -> @editor = new Editor(@$.editor, @)
-        htmlChanged: (oldVal, newVal) -> @editor.set_editor("html", newVal)
-        cssChanged: (oldVal, newVal) -> @editor.set_editor("css", newVal)
-        jsChanged: (oldVal, newVal) -> @editor.set_editor("js", newVal)
-        layoutChanged: (oldVal, newVal) -> @editor.set_layout()
-    }
+    CodeMirror = require("codemirror/lib/codemirror")
+    require("codemirror/mode/htmlmixed/htmlmixed")
+    require("codemirror/mode/css/css")
+    require("codemirror/mode/javascript/javascript")
 
     class Editor
 
@@ -167,5 +159,5 @@ do ->
             document.mozCancelFullScreen?()
             document.webkitExitFullscreen?()
             return
-
-    return
+ 
+    module.exports = Editor

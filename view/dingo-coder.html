@@ -39,11 +39,12 @@
             </div>
         </div>
     </template>
-    <script src="./vendor/jquery/dist/jquery.min.js"></script>
-    <script src="./vendor/codemirror/lib/codemirror.js"></script>
-    <script src="./vendor/codemirror/mode/htmlmixed/htmlmixed.js"></script>
-    <script src="./vendor/codemirror/mode/xml/xml.js"></script>
-    <script src="./vendor/codemirror/mode/javascript/javascript.js"></script>
-    <script src="./vendor/codemirror/mode/css/css.js"></script>
-    <script src="./module/coder.js"></script>
+    <script src="./vendor/requirejs/require.js"></script>
+    <script src="./js/seed.js"></script>
+    <script>
+    require(['./js/index'], function(Index){
+        Index.init();
+    })
+    </script>
+
 </polymer-element>
