@@ -31,6 +31,7 @@
       this.container = $(this.container);
       this.ifr_init();
       this.editor_init();
+      this.lightdom_init();
       this.event_bind();
     }
 
@@ -78,6 +79,19 @@
         lineNumbers: true,
         matchBrackets: true,
         mode: "text/html"
+      });
+    };
+
+    Editor.prototype.lightdom_init = function() {
+      var self;
+      self = this;
+      window.codeList = $("<div>" + this.attrs.innerHTML + "</div>");
+      return codeList.find("textarea").each(function() {
+        var code_type;
+        code_type = $(this).attr("code");
+        window.test = $(this);
+        self.attrs.setAttribute(code_type, $(this).val());
+        return window.editor = self[code_type + "_editor"];
       });
     };
 

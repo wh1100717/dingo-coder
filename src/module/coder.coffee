@@ -20,6 +20,7 @@ do ->
             @container = $(@container)
             @ifr_init()
             @editor_init()
+            @lightdom_init()
             @event_bind()
 
         ifr_init: ->
@@ -64,6 +65,18 @@ do ->
                 mode: "text/html"
             }
             return
+
+        lightdom_init: ->
+            self = @
+            window.codeList = $("<div>#{@attrs.innerHTML}</div>")
+            codeList.find("textarea").each ->
+                code_type = $(@).attr("code")
+                window.test = $(@)
+                self.attrs.setAttribute(code_type, $(@).val())
+                window.editor = self["#{code_type}_editor"]
+
+
+
 
         set_editor: (type, val) -> @["#{type}_editor"].getDoc().setValue(val)
 
