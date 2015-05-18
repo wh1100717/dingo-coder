@@ -18,6 +18,18 @@ define (require, exports, module) ->
             html: "htmlmixed"
             css: "css"
             velocity: "velocity"
+            sass: "sass"
+            java: "jade"
+        }
+
+        type: {
+            css: "text/css"
+            js: "text/js"
+            javascript: "text/js"
+            html: "text/html"
+            sass: "text/x-sass"
+            java: "text/x-java"
+            velocity: "text/velocity"
         }
 
 
@@ -62,8 +74,9 @@ define (require, exports, module) ->
                         theme: "monokai"
                         lineNumbers: true
                         matchBrackets: true
-                        mode: "text/" + code_type
+                        mode: "#{self.type[code_type]}"
                     }
+                    self.container.find("#code#{code_type}").next().prepend("<div class='remind'>#{code_type}</div>")
                     code_content = $(@).val()
                     code_content = self.code_format(code_type, code_content)
                     self.attrs.setAttribute(code_type, code_content)
@@ -76,7 +89,12 @@ define (require, exports, module) ->
                     else self["#{code_type}_editor"] .on "change", => self.ifr_refresh()
             querycheck = setInterval =>
                 return if @flag isnt 0
-                @container.find(".mode-tab").eq(0).addClass("active")
+                # way 1
+                # @container.find("div[codetype='codehtml']").prependTo(@container.find("#mode-tabs"))
+                # @container.find(".mode-tab").eq(0).addClass("active")
+                # @container.find("#codehtml").next().prependTo(@container.find("#code-editor"))
+                # @container.find("#codehtml").prependTo(@container.find("#code-editor"))
+                # way 2
                 @container.find("div[codetype='codehtml']").prependTo(@container.find("#mode-tabs"))
                 @container.find(".mode-tab").eq(0).trigger "click"
                 clearInterval(querycheck)
@@ -103,17 +121,14 @@ define (require, exports, module) ->
             switch @attrs.layout
                 when 1
                     @container.find("#mode-tabs").removeClass("tabup").addClass("tabdown")
-                    @container.find(".remind").remove()
+                    # @container.find(".remind").remove()
                     @container.find(".CodeMirror").removeClass("expansionup").addClass("expansiondown")
                     @container.find(".mode-tab").removeClass("active")
-                    @container.find(".mode-tab").eq(0).addClass("active")
+                    @container.find(".mode-tab").eq(0).trigger "click"
                 when 2
                     @container.find("#mode-tabs #file-dropdown-toggle #file-dropdown").hide()
                     @container.find(".CodeMirror").show().addClass("expansionup")
                     @container.find("#mode-tabs").addClass("tabup")
-                    @container.find(".CodeMirror").eq(0).prepend("<div class='remind'>HTML</div>")
-                    @container.find(".CodeMirror").eq(1).prepend("<div class='remind'>CSS</div>")
-                    @container.find(".CodeMirror").eq(2).prepend("<div class='remind'>JS</div>")
                 else
                     @attrs.layout = 1
                     @set_layout()
@@ -128,25 +143,7 @@ define (require, exports, module) ->
                 self.container.find(".CodeMirror").removeClass("expansiondown")
                 self.container.find(".CodeMirror").hide()
                 toshow = $(@).attr("codetype")
-                console.log toshow
                 self.container.find("##{toshow}").next().show()
-
-            # @container.find(".mode-tab").on "click", ->
-            #     return if $(@).hasClass("active")
-            #     index = self.container.find(".mode-tab").index(@)
-            #     self.container.find(".mode-tab").removeClass("active")
-            #     $(@).addClass("active")
-            #     self.container.find(".CodeMirror").removeClass("expansiondown")
-            #     self.container.find(".CodeMirror").hide()
-            #     self.container.find(".CodeMirror").eq(index).show()
-            # @css_editor.on "change", => @ifr_refresh()
-            # @html_editor.on "change", => @ifr_refresh()
-            # @velocity_editor.on "change", => @ifr_refresh()
-            # @js_editor.on "change", =>
-            #     clearTimeout(@timeout)
-            #     @timeout = setTimeout(=>
-            #         @ifr_refresh()
-            #     , 700)
             @container.find("#toggle-full-screen").click ->
                 if $(@).hasClass("full-screen-enabled") then self.exit_fullscreen() else self.enter_fullscreen()
                 $(@).toggleClass("full-screen-enabled")

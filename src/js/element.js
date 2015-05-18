@@ -25,6 +25,9 @@ define(function(require, exports, module) {
       velocityChanged: function(oldVal, newVal) {
         return this.editor.set_editor("velocity", newVal);
       },
+      javaChanged: function(oldVal, newVal) {
+        return this.editor.set_editor("java", newVal);
+      },
       layoutChanged: function(oldVal, newVal) {
         return this.editor.set_layout();
       }

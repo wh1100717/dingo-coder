@@ -19,7 +19,19 @@ define(function(require, exports, module) {
       javascript: "javascript",
       html: "htmlmixed",
       css: "css",
-      velocity: "velocity"
+      velocity: "velocity",
+      sass: "sass",
+      java: "jade"
+    };
+
+    Editor.prototype.type = {
+      css: "text/css",
+      js: "text/js",
+      javascript: "text/js",
+      html: "text/html",
+      sass: "text/x-sass",
+      java: "text/x-java",
+      velocity: "text/velocity"
     };
 
     Editor.prototype.ifr_init = function() {
@@ -71,8 +83,9 @@ define(function(require, exports, module) {
               theme: "monokai",
               lineNumbers: true,
               matchBrackets: true,
-              mode: "text/" + code_type
+              mode: "" + self.type[code_type]
             });
+            self.container.find("#code" + code_type).next().prepend("<div class='remind'>" + code_type + "</div>");
             code_content = $(_this).val();
             code_content = self.code_format(code_type, code_content);
             self.attrs.setAttribute(code_type, code_content);
@@ -96,7 +109,6 @@ define(function(require, exports, module) {
           if (_this.flag !== 0) {
             return;
           }
-          _this.container.find(".mode-tab").eq(0).addClass("active");
           _this.container.find("div[codetype='codehtml']").prependTo(_this.container.find("#mode-tabs"));
           _this.container.find(".mode-tab").eq(0).trigger("click");
           return clearInterval(querycheck);
@@ -129,18 +141,14 @@ define(function(require, exports, module) {
       switch (this.attrs.layout) {
         case 1:
           this.container.find("#mode-tabs").removeClass("tabup").addClass("tabdown");
-          this.container.find(".remind").remove();
           this.container.find(".CodeMirror").removeClass("expansionup").addClass("expansiondown");
           this.container.find(".mode-tab").removeClass("active");
-          this.container.find(".mode-tab").eq(0).addClass("active");
+          this.container.find(".mode-tab").eq(0).trigger("click");
           break;
         case 2:
           this.container.find("#mode-tabs #file-dropdown-toggle #file-dropdown").hide();
           this.container.find(".CodeMirror").show().addClass("expansionup");
           this.container.find("#mode-tabs").addClass("tabup");
-          this.container.find(".CodeMirror").eq(0).prepend("<div class='remind'>HTML</div>");
-          this.container.find(".CodeMirror").eq(1).prepend("<div class='remind'>CSS</div>");
-          this.container.find(".CodeMirror").eq(2).prepend("<div class='remind'>JS</div>");
           break;
         default:
           this.attrs.layout = 1;
@@ -161,7 +169,6 @@ define(function(require, exports, module) {
         self.container.find(".CodeMirror").removeClass("expansiondown");
         self.container.find(".CodeMirror").hide();
         toshow = $(this).attr("codetype");
-        console.log(toshow);
         return self.container.find("#" + toshow).next().show();
       });
       this.container.find("#toggle-full-screen").click(function() {
