@@ -6,6 +6,7 @@ define(function(require, exports, module) {
     function Layout(container, attrs) {
       this.container = container;
       this.attrs = attrs;
+      this.event_bind();
     }
 
     Layout.prototype.set_layout = function() {
@@ -14,7 +15,6 @@ define(function(require, exports, module) {
       switch (this.attrs.layout) {
         case 1:
           this.container.find("#mode-tabs").removeClass("tabup").addClass("tabdown");
-          this.container.find(".remind").remove();
           this.container.find(".CodeMirror").removeClass("expansionup").addClass("expansiondown");
           this.container.find(".mode-tab").removeClass("active");
           this.container.find(".mode-tab").eq(0).addClass("active");
@@ -23,9 +23,6 @@ define(function(require, exports, module) {
           this.container.find("#mode-tabs #file-dropdown-toggle #file-dropdown").hide();
           this.container.find(".CodeMirror").show().addClass("expansionup");
           this.container.find("#mode-tabs").addClass("tabup");
-          this.container.find(".CodeMirror").eq(0).prepend("<div class='remind'>HTML</div>");
-          this.container.find(".CodeMirror").eq(1).prepend("<div class='remind'>CSS</div>");
-          this.container.find(".CodeMirror").eq(2).prepend("<div class='remind'>JS</div>");
           break;
         default:
           this.attrs.layout = 1;
@@ -62,6 +59,51 @@ define(function(require, exports, module) {
       if (typeof document.webkitExitFullscreen === "function") {
         document.webkitExitFullscreen();
       }
+    };
+
+    Layout.prototype.event_bind = function() {
+      var self;
+      self = this;
+      this.container.find("#toggle-full-screen").click(function() {
+        if ($(this).hasClass("full-screen-enabled")) {
+          self.exit_fullscreen();
+        } else {
+          self.enter_fullscreen();
+        }
+        return $(this).toggleClass("full-screen-enabled");
+      });
+      this.container.find(".iframeread").click(function() {
+        if (!$(this).hasClass("active")) {
+          $(this).addClass("active");
+          self.container.find(".codepanel").removeClass("narrow").addClass("expansionleft");
+          return self.container.find(".renderpanel").removeClass("expansion").addClass("narrowleft");
+        } else if (self.container.find(".coderead").hasClass("active")) {
+          $(this).removeClass("active");
+          self.container.find(".codepanel").removeClass("expansionleft narrowleft").addClass('narrow');
+          return self.container.find(".renderpanel").removeClass("narrowleft expansionleft").addClass('expansion');
+        } else {
+          self.container.find(".coderead").click();
+          return setTimeout(function() {
+            return self.container.find(".iframeread").click();
+          }, 500);
+        }
+      });
+      return this.container.find(".coderead").on("click", function() {
+        if (!$(this).hasClass("active")) {
+          $(this).addClass("active");
+          self.container.find(".renderpanel").removeClass("narrow").addClass("expansionleft");
+          return self.container.find(".codepanel").removeClass("expansion").addClass("narrowleft");
+        } else if (self.container.find(".iframeread").hasClass("active")) {
+          $(this).removeClass("active");
+          self.container.find(".renderpanel").removeClass("expansionleft narrowleft").addClass("narrow");
+          return self.container.find(".codepanel").removeClass("narrowleft expansionleft").addClass("expansion");
+        } else {
+          self.container.find(".iframeread").click();
+          return setTimeout(function() {
+            return self.container.find(".coderead").click();
+          }, 500);
+        }
+      });
     };
 
     return Layout;

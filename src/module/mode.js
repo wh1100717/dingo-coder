@@ -3,11 +3,26 @@ define(function(require, exports, module) {
   "use strict";
   var Mode;
   Mode = {
-    js: "javascript",
-    javascript: "javascript",
-    html: "htmlmixed",
-    css: "css",
-    velocity: "velocity"
+    js: {
+      mode: "javascript",
+      type: "text/js"
+    },
+    css: {
+      mode: "css",
+      type: "text/css"
+    },
+    html: {
+      mode: "htmlmixed",
+      type: "text/html"
+    },
+    velocity: {
+      mode: "velocity",
+      type: "text/velocity"
+    },
+    sass: {
+      mode: "sass",
+      type: "text/x-sass"
+    }
   };
   return module.exports = Mode;
 });

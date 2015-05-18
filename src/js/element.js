@@ -16,7 +16,10 @@ define(function(require, exports, module) {
       },
       attributeChanged: function(attrName, oldVal, newVal) {
         if (mode[attrName] != null) {
-          return this.editor.set_editor(attrName, newVal);
+          this.editor.set_editor(attrName, newVal);
+        }
+        if (attrName === "js" || attrName === "css" || attrName === "html") {
+          return this.editor.refresh();
         }
       }
     });

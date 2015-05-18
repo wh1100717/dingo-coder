@@ -13,7 +13,6 @@ define(function(require, exports, module) {
       this.ifr = new Iframe(this.container, this);
       this.coder = new Coder(this.container, this, this.attrs);
       this.layout = new Layout(this.container, this.attrs);
-      this.event_bind();
     }
 
     Editor.prototype.set_editor = function(type, val) {
@@ -24,67 +23,8 @@ define(function(require, exports, module) {
       return this.layout.set_layout();
     };
 
-    Editor.prototype.event_bind = function() {
-      var self;
-      self = this;
-      this.container.find("#mode-tabs").delegate("div", "click", function() {
-        var toshow;
-        if ($(this).hasClass("active")) {
-          return;
-        }
-        self.container.find(".mode-tab").removeClass("active");
-        $(this).addClass("active");
-        self.container.find(".CodeMirror").removeClass("expansiondown");
-        self.container.find(".CodeMirror").hide();
-        toshow = $(this).attr("codetype");
-        console.log(toshow);
-        return self.container.find("#" + toshow).next().show();
-      });
-      this.container.find("#toggle-full-screen").click(function() {
-        if ($(this).hasClass("full-screen-enabled")) {
-          self.layout.exit_fullscreen();
-        } else {
-          self.layout.enter_fullscreen();
-        }
-        return $(this).toggleClass("full-screen-enabled");
-      });
-      this.container.find(".iframeread").click(function() {
-        if (!$(this).hasClass("active")) {
-          $(this).addClass("active");
-          self.container.find(".codepanel").removeClass("narrow").addClass("expansionleft");
-          return self.container.find(".renderpanel").removeClass("expansion").addClass("narrowleft");
-        } else if (self.container.find(".coderead").hasClass("active")) {
-          $(this).removeClass("active");
-          self.container.find(".codepanel").removeClass("expansionleft narrowleft").addClass('narrow');
-          return self.container.find(".renderpanel").removeClass("narrowleft expansionleft").addClass('expansion');
-        } else {
-          self.container.find(".coderead").click();
-          return setTimeout(function() {
-            return self.container.find(".iframeread").click();
-          }, 500);
-        }
-      });
-      this.container.find(".coderead").on("click", function() {
-        if (!$(this).hasClass("active")) {
-          $(this).addClass("active");
-          self.container.find(".renderpanel").removeClass("narrow").addClass("expansionleft");
-          return self.container.find(".codepanel").removeClass("expansion").addClass("narrowleft");
-        } else if (self.container.find(".iframeread").hasClass("active")) {
-          $(this).removeClass("active");
-          self.container.find(".renderpanel").removeClass("expansionleft narrowleft").addClass("narrow");
-          return self.container.find(".codepanel").removeClass("narrowleft expansionleft").addClass("expansion");
-        } else {
-          self.container.find(".iframeread").click();
-          return setTimeout(function() {
-            return self.container.find(".coderead").click();
-          }, 500);
-        }
-      });
-      return this.container.find(".mode").on("click", (function(_this) {
-        return function() {
-          return _this.attrs.layout++;
-        };
-      })(this));
+    Editor.prototype.refresh = function() {
+      return this.ifr.refresh();
     };
 
     return Editor;

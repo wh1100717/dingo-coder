@@ -13,8 +13,9 @@ define (require, exports, module) ->
             title: "Dingo Coder"
             layout: 1
             ready: -> @editor = new Editor(@$.editor, @)
-            attributeChanged: (attrName, oldVal, newVal) -> @editor.set_editor(attrName, newVal) if mode[attrName]?
+            attributeChanged: (attrName, oldVal, newVal) ->
+                @editor.set_editor(attrName, newVal) if mode[attrName]?
+                @editor.refresh() if attrName in ["js", "css", "html"]
         }
 
- 
     module.exports = Element

@@ -14,11 +14,12 @@ define(function(require, exports, module) {
       self = this;
       flag = 0;
       codeList = $("<div>" + this.attrs.innerHTML + "</div>");
+      this.event_bind();
       codeList.find("textarea").each(function() {
         var code_type;
         flag++;
         code_type = $(this).attr("code");
-        return require(["codemirror/mode/" + mode[code_type] + "/" + mode[code_type]], (function(_this) {
+        return require(["codemirror/mode/" + mode[code_type].mode + "/" + mode[code_type].mode], (function(_this) {
           return function() {
             var code_content, codemirrorinit, menu;
             flag--;
@@ -31,19 +32,13 @@ define(function(require, exports, module) {
               theme: "monokai",
               lineNumbers: true,
               matchBrackets: true,
-              mode: "text/" + code_type
+              mode: "" + mode[code_type].type
             });
+            self.container.find("#code" + code_type).next().prepend("<div class='remind'>" + code_type + "</div>");
             code_content = $(_this).val();
             code_content = self.code_format(code_type, code_content);
             self.attrs.setAttribute(code_type, code_content);
-            if (code_type === "js") {
-              return self.editor[code_type + "_editor"].on("change", function() {
-                clearTimeout(self.timeout);
-                return self.timeout = setTimeout(function() {
-                  return self.editor.ifr.refresh();
-                }, 700);
-              });
-            } else {
+            if (code_type === "js" || code_type === "css" || code_type === "html") {
               return self.editor[code_type + "_editor"].on("change", function() {
                 return self.editor.ifr.refresh();
               });
@@ -56,12 +51,11 @@ define(function(require, exports, module) {
           if (flag !== 0) {
             return;
           }
-          _this.container.find(".mode-tab").eq(0).addClass("active");
           _this.container.find("div[codetype='codehtml']").prependTo(_this.container.find("#mode-tabs"));
           _this.container.find(".mode-tab").eq(0).trigger("click");
           return clearInterval(querycheck);
         };
-      })(this), 20);
+      })(this), 100);
       return;
     }
 
@@ -78,6 +72,28 @@ define(function(require, exports, module) {
           content = beautify.js_beautify(content);
       }
       return content;
+    };
+
+    Coder.prototype.event_bind = function() {
+      var self;
+      self = this;
+      this.container.find("#mode-tabs").delegate("div", "click", function() {
+        var toshow;
+        if ($(this).hasClass("active")) {
+          return;
+        }
+        self.container.find(".mode-tab").removeClass("active");
+        $(this).addClass("active");
+        self.container.find(".CodeMirror").removeClass("expansiondown");
+        self.container.find(".CodeMirror").hide();
+        toshow = $(this).attr("codetype");
+        return self.container.find("#" + toshow).next().show();
+      });
+      return this.container.find(".mode").on("click", (function(_this) {
+        return function() {
+          return _this.attrs.layout++;
+        };
+      })(this));
     };
 
     return Coder;
