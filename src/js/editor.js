@@ -48,8 +48,10 @@ define(function(require, exports, module) {
       self = this;
       window.codeList = $("<div>" + this.attrs.innerHTML + "</div>");
       codeList.find("textarea").each(function() {
-        var code_type, div;
+        var bar, code_type, div;
         code_type = $(this).attr("code");
+        bar = $("<div class='mode-tab '>" + code_type + "<div class='arrow-up arrow-" + code_type + "'></div></div>");
+        self.container.find("#mode-tabs").append(bar);
         div = document.createElement("textarea");
         div.id = "code" + code_type;
         self.container.find("#code-editor").append(div);

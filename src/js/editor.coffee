@@ -42,6 +42,8 @@ define (require, exports, module) ->
             window.codeList = $("<div>#{@attrs.innerHTML}</div>")
             codeList.find("textarea").each ->
                 code_type = $(@).attr("code")
+                bar = $("<div class='mode-tab '>#{code_type}<div class='arrow-up arrow-#{code_type}'></div></div>")
+                self.container.find("#mode-tabs").append(bar)
                 div = document.createElement("textarea")
                 div.id = "code" + code_type
                 self.container.find("#code-editor").append(div)
@@ -53,38 +55,7 @@ define (require, exports, module) ->
             }
                 console.log code_type
                 self.attrs.setAttribute(code_type, $(@).val())
-                # console.log self.attrs
-
-            # @js_editor = CodeMirror.fromTextArea @container.find("#codejs")[0], {
-            #     theme: "monokai"
-            #     lineNumbers: true
-            #     matchBrackets: true
-            #     mode: "text/javascript"
-            # }
-            # @css_editor = CodeMirror.fromTextArea @container.find("#codecss")[0], {
-            #     theme: "monokai"
-            #     lineNumbers: true
-            #     matchBrackets: true
-            #     mode: "text/css"
-            # }
-            # @html_editor = CodeMirror.fromTextArea @container.find("#codehtml")[0], {
-            #     theme: "monokai"
-            #     lineNumbers: true
-            #     matchBrackets: true
-            #     mode: "text/html"
-            # }
             return
-
-        # lightdom_init: ->
-        #     self = @
-        #     window.codeList = $("<div>#{@attrs.innerHTML}</div>")
-        #     codeList.find("textarea").each ->
-        #         code_type = $(@).attr("code")
-        #         window.test = $(@)
-        #         self.attrs.setAttribute(code_type, $(@).val())
-        #         window.editor = self["#{code_type}_editor"]
-
-
 
 
         set_editor: (type, val) ->

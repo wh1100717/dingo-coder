@@ -19,7 +19,7 @@ define (require, exports, module) ->
             htmlChanged: (oldVal, newVal) -> @editor.set_editor("html", newVal)
             cssChanged: (oldVal, newVal) -> @editor.set_editor("css", newVal)
             jsChanged: (oldVal, newVal) -> @editor.set_editor("js", newVal)
-            velocityChanged: (oldVal, newVal) ->@editor.set_editor("velocity", newVal)
+            velocityChanged: (oldVal, newVal) -> @editor.set_editor("velocity", newVal)
             layoutChanged: (oldVal, newVal) -> @editor.set_layout()
            
         }
