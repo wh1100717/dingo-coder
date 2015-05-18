@@ -77,9 +77,10 @@ define (require, exports, module) ->
             querycheck = setInterval =>
                 return if @flag isnt 0
                 @container.find(".mode-tab").eq(0).addClass("active")
+                @container.find("div[codetype='codehtml']").prependTo(@container.find("#mode-tabs"))
+                @container.find(".mode-tab").eq(0).trigger "click"
                 clearInterval(querycheck)
             , 20
-
             return
 
 

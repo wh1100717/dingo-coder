@@ -97,6 +97,8 @@ define(function(require, exports, module) {
             return;
           }
           _this.container.find(".mode-tab").eq(0).addClass("active");
+          _this.container.find("div[codetype='codehtml']").prependTo(_this.container.find("#mode-tabs"));
+          _this.container.find(".mode-tab").eq(0).trigger("click");
           return clearInterval(querycheck);
         };
       })(this), 20);
