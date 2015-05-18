@@ -7,10 +7,6 @@ define(function(require, exports, module) {
   Element = {};
   Element.init = function() {
     return Polymer("dingo-coder", {
-      html: "",
-      css: "",
-      js: "",
-      velocity: "",
       icon: "/img/logo.png",
       title: "Dingo Coder",
       layout: 1,

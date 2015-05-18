@@ -8,10 +8,10 @@ define (require, exports, module) ->
 
     Element.init = ->
         Polymer "dingo-coder", {
-            html: ""
-            css: ""
-            js: ""
-            velocity: ""
+            # html: ""
+            # css: ""
+            # js: ""
+            # velocity: ""
             icon:"/img/logo.png"
             title: "Dingo Coder"
             layout: 1

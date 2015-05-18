@@ -2,10 +2,7 @@ define (require, exports, module) ->
     "use strict"
 
     CodeMirror = require("codemirror/lib/codemirror")
-    require("codemirror/mode/htmlmixed/htmlmixed")
-    require("codemirror/mode/css/css")
-    require("codemirror/mode/javascript/javascript")
-    require("codemirror/mode/velocity/velocity")
+    beautify = require("../module/beautify/index")
 
     class Editor
 
@@ -15,11 +12,21 @@ define (require, exports, module) ->
             @editor_init()
             @event_bind()
 
+        mode: {
+            js: "javascript"
+            javascript: "javascript"
+            html: "htmlmixed"
+            css: "css"
+            velocity: "velocity"
+        }
+
+
         ifr_init: ->
             @ifr = document.createElement("iframe")
             @ifr.id = "ifr_coder"
             @ifr.scrolling = "no"
             @ifr.setAttribute("class","renderer coder")
+            @ifr.setAttribute("scrolling","yes")
             @container.find("#renderer-container").append(@ifr)
             return
 
@@ -39,28 +46,55 @@ define (require, exports, module) ->
 
         editor_init: ->
             self = @
+            @flag = 0
             window.codeList = $("<div>#{@attrs.innerHTML}</div>")
             codeList.find("textarea").each ->
+                self.flag++
                 code_type = $(@).attr("code")
-                bar = $("<div class='mode-tab '>#{code_type}<div class='arrow-up arrow-#{code_type}'></div></div>")
-                self.container.find("#mode-tabs").append(bar)
-                div = document.createElement("textarea")
-                div.id = "code" + code_type
-                self.container.find("#code-editor").append(div)
-                self["#{code_type}_editor"] = CodeMirror.fromTextArea self.container.find("#" + div.id)[0], {
-                    theme: "monokai"
-                    lineNumbers: true
-                    matchBrackets: true
-                    mode: "text/" + code_type
-            }
-                console.log code_type
-                self.attrs.setAttribute(code_type, $(@).val())
+                require ["codemirror/mode/#{self.mode[code_type]}/#{self.mode[code_type]}"], =>
+                    self.flag--
+                    menu = $("<div class='mode-tab ' codetype='code#{code_type}'>#{code_type}<div class='arrow-up '></div></div>")
+                    self.container.find("#mode-tabs").append(menu)
+                    codemirrorinit = document.createElement("textarea")
+                    codemirrorinit.id = "code" + code_type
+                    self.container.find("#code-editor").append(codemirrorinit)
+                    self["#{code_type}_editor"] = CodeMirror.fromTextArea self.container.find("#" + codemirrorinit.id)[0], {
+                        theme: "monokai"
+                        lineNumbers: true
+                        matchBrackets: true
+                        mode: "text/" + code_type
+                    }
+                    code_content = $(@).val()
+                    code_content = self.code_format(code_type, code_content)
+                    self.attrs.setAttribute(code_type, code_content)
+                    if code_type is "js"
+                        self["#{code_type}_editor"].on "change", =>
+                            clearTimeout(self.timeout)
+                            self.timeout = setTimeout(=>
+                                self.ifr_refresh()
+                            , 700)
+                    else self["#{code_type}_editor"] .on "change", => self.ifr_refresh()
+            querycheck = setInterval =>
+                return if @flag isnt 0
+                @container.find(".mode-tab").eq(0).addClass("active")
+                clearInterval(querycheck)
+            , 20
+
             return
 
 
+
+
+        code_format: (type, content) ->
+            content = content.trim()
+            switch type
+                when "html" then content = beautify.html_beautify(content)
+                when "css" then content = beautify.css_beautify(content)
+                when "js" then content = beautify.js_beautify(content)
+            return content
+
         set_editor: (type, val) ->
             @["#{type}_editor"].getDoc().setValue(val)
-            # console.log val
 
         set_layout: ->
             @container.find(".CodeMirror").removeClass("expansiondown expansionup")
@@ -86,22 +120,32 @@ define (require, exports, module) ->
 
         event_bind: ->
             self = @
-            @container.find(".mode-tab").on "click", ->
+            @container.find("#mode-tabs").delegate "div","click", ->
                 return if $(@).hasClass("active")
-                index = self.container.find(".mode-tab").index(@)
                 self.container.find(".mode-tab").removeClass("active")
                 $(@).addClass("active")
                 self.container.find(".CodeMirror").removeClass("expansiondown")
                 self.container.find(".CodeMirror").hide()
-                self.container.find(".CodeMirror").eq(index).show()
-            @css_editor.on "change", => @ifr_refresh()
-            @html_editor.on "change", => @ifr_refresh()
-            @velocity_editor.on "change", => @ifr_refresh()
-            @js_editor.on "change", =>
-                clearTimeout(@timeout)
-                @timeout = setTimeout(=>
-                    @ifr_refresh()
-                , 700)
+                toshow = $(@).attr("codetype")
+                console.log toshow
+                self.container.find("##{toshow}").next().show()
+
+            # @container.find(".mode-tab").on "click", ->
+            #     return if $(@).hasClass("active")
+            #     index = self.container.find(".mode-tab").index(@)
+            #     self.container.find(".mode-tab").removeClass("active")
+            #     $(@).addClass("active")
+            #     self.container.find(".CodeMirror").removeClass("expansiondown")
+            #     self.container.find(".CodeMirror").hide()
+            #     self.container.find(".CodeMirror").eq(index).show()
+            # @css_editor.on "change", => @ifr_refresh()
+            # @html_editor.on "change", => @ifr_refresh()
+            # @velocity_editor.on "change", => @ifr_refresh()
+            # @js_editor.on "change", =>
+            #     clearTimeout(@timeout)
+            #     @timeout = setTimeout(=>
+            #         @ifr_refresh()
+            #     , 700)
             @container.find("#toggle-full-screen").click ->
                 if $(@).hasClass("full-screen-enabled") then self.exit_fullscreen() else self.enter_fullscreen()
                 $(@).toggleClass("full-screen-enabled")
