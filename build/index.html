@@ -37,13 +37,49 @@
     <div style="height:20px;width:100%"></div>
     <div id="wrap">
         <dingo-coder
-            js="console.log('Hello World')"
             title="Dingo Coder"
             icon="./img/logo.png"
-            layout="1"
-            header="false">
+            layout="1">
+            <textarea code="html" style="display: none">
+                <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+                <div class="example">
+                    <button type="button" class="btn btn-default">Default</button>
+                    <button type="button" class="btn btn-primary">Primary</button>
+                    <button type="button" class="btn btn-success">Success</button>
+                    <button type="button" class="btn btn-info">Info</button>
+                    <button type="button" class="btn btn-warning">Warning</button>
+                    <button type="button" class="btn btn-danger">Danger</button>
+                    <button type="button" class="btn btn-link">Link</button>
+                </div>
+            </textarea>
+            <textarea code="css" style="display:none">
+                .example {
+                    margin-right: 0;
+                    margin-left: 0;
+                    background-color: #fff;
+                    border-color: #ddd;
+                    border-width: 1px;
+                    border-radius: 4px 4px 0 0;
+                    -webkit-box-shadow: none;
+                    box-shadow: none;
+                    position: relative;
+                    padding: 45px 15px 45px 15px;
+                    border-style: solid;
+                }
+            </textarea>
+            <textarea code="js" style="display:none">
+                console.log(123);
+            </textarea>
+            <textarea code="velocity" style="display:none">
+                The RHS can also be a simple arithmetic expression, such as:
+                Addition: #set( $value = $foo + 1 )
+                   Subtraction: #set( $value = $bar - 1 )
+                   Multiplication: #set( $value = $foo * $bar )
+                   Division: #set( $value = $foo / $bar )
+                   Remainder: #set( $value = $foo % $bar )
+            </textarea>
         </dingo-coder>
-        <script type="text/javascript" src="./js/home.js"></script>
+        <!-- <script type="text/javascript" src="./js/home.js"></script> -->
     </div>
 
 </body>
