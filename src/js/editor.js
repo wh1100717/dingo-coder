@@ -6,6 +6,7 @@ define(function(require, exports, module) {
   require("codemirror/mode/htmlmixed/htmlmixed");
   require("codemirror/mode/css/css");
   require("codemirror/mode/javascript/javascript");
+  require("codemirror/mode/velocity/velocity");
   Editor = (function() {
     function Editor(container, attrs) {
       this.container = container;
@@ -13,7 +14,6 @@ define(function(require, exports, module) {
       this.container = $(this.container);
       this.ifr_init();
       this.editor_init();
-      this.lightdom_init();
       this.event_bind();
     }
 
@@ -44,36 +44,23 @@ define(function(require, exports, module) {
     };
 
     Editor.prototype.editor_init = function() {
-      this.js_editor = CodeMirror.fromTextArea(this.container.find("#codejs")[0], {
-        theme: "monokai",
-        lineNumbers: true,
-        matchBrackets: true,
-        mode: "text/javascript"
-      });
-      this.css_editor = CodeMirror.fromTextArea(this.container.find("#codecss")[0], {
-        theme: "monokai",
-        lineNumbers: true,
-        matchBrackets: true,
-        mode: "text/css"
-      });
-      this.html_editor = CodeMirror.fromTextArea(this.container.find("#codehtml")[0], {
-        theme: "monokai",
-        lineNumbers: true,
-        matchBrackets: true,
-        mode: "text/html"
-      });
-    };
-
-    Editor.prototype.lightdom_init = function() {
       var self;
       self = this;
       window.codeList = $("<div>" + this.attrs.innerHTML + "</div>");
-      return codeList.find("textarea").each(function() {
-        var code_type;
+      codeList.find("textarea").each(function() {
+        var code_type, div;
         code_type = $(this).attr("code");
-        window.test = $(this);
-        self.attrs.setAttribute(code_type, $(this).val());
-        return window.editor = self[code_type + "_editor"];
+        div = document.createElement("textarea");
+        div.id = "code" + code_type;
+        self.container.find("#code-editor").append(div);
+        self[code_type + "_editor"] = CodeMirror.fromTextArea(self.container.find("#" + div.id)[0], {
+          theme: "monokai",
+          lineNumbers: true,
+          matchBrackets: true,
+          mode: "text/" + code_type
+        });
+        console.log(code_type);
+        return self.attrs.setAttribute(code_type, $(this).val());
       });
     };
 
@@ -127,6 +114,11 @@ define(function(require, exports, module) {
         };
       })(this));
       this.html_editor.on("change", (function(_this) {
+        return function() {
+          return _this.ifr_refresh();
+        };
+      })(this));
+      this.velocity_editor.on("change", (function(_this) {
         return function() {
           return _this.ifr_refresh();
         };

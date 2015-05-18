@@ -5,6 +5,7 @@ define (require, exports, module) ->
     require("codemirror/mode/htmlmixed/htmlmixed")
     require("codemirror/mode/css/css")
     require("codemirror/mode/javascript/javascript")
+    require("codemirror/mode/velocity/velocity")
 
     class Editor
 
@@ -12,7 +13,6 @@ define (require, exports, module) ->
             @container = $(@container)
             @ifr_init()
             @editor_init()
-            @lightdom_init()
             @event_bind()
 
         ifr_init: ->
@@ -38,39 +38,58 @@ define (require, exports, module) ->
             return
 
         editor_init: ->
-            @js_editor = CodeMirror.fromTextArea @container.find("#codejs")[0], {
-                theme: "monokai"
-                lineNumbers: true
-                matchBrackets: true
-                mode: "text/javascript"
-            }
-            @css_editor = CodeMirror.fromTextArea @container.find("#codecss")[0], {
-                theme: "monokai"
-                lineNumbers: true
-                matchBrackets: true
-                mode: "text/css"
-            }
-            @html_editor = CodeMirror.fromTextArea @container.find("#codehtml")[0], {
-                theme: "monokai"
-                lineNumbers: true
-                matchBrackets: true
-                mode: "text/html"
-            }
-            return
-
-        lightdom_init: ->
             self = @
             window.codeList = $("<div>#{@attrs.innerHTML}</div>")
             codeList.find("textarea").each ->
                 code_type = $(@).attr("code")
-                window.test = $(@)
+                div = document.createElement("textarea")
+                div.id = "code" + code_type
+                self.container.find("#code-editor").append(div)
+                self["#{code_type}_editor"] = CodeMirror.fromTextArea self.container.find("#" + div.id)[0], {
+                    theme: "monokai"
+                    lineNumbers: true
+                    matchBrackets: true
+                    mode: "text/" + code_type
+            }
+                console.log code_type
                 self.attrs.setAttribute(code_type, $(@).val())
-                window.editor = self["#{code_type}_editor"]
+                # console.log self.attrs
+
+            # @js_editor = CodeMirror.fromTextArea @container.find("#codejs")[0], {
+            #     theme: "monokai"
+            #     lineNumbers: true
+            #     matchBrackets: true
+            #     mode: "text/javascript"
+            # }
+            # @css_editor = CodeMirror.fromTextArea @container.find("#codecss")[0], {
+            #     theme: "monokai"
+            #     lineNumbers: true
+            #     matchBrackets: true
+            #     mode: "text/css"
+            # }
+            # @html_editor = CodeMirror.fromTextArea @container.find("#codehtml")[0], {
+            #     theme: "monokai"
+            #     lineNumbers: true
+            #     matchBrackets: true
+            #     mode: "text/html"
+            # }
+            return
+
+        # lightdom_init: ->
+        #     self = @
+        #     window.codeList = $("<div>#{@attrs.innerHTML}</div>")
+        #     codeList.find("textarea").each ->
+        #         code_type = $(@).attr("code")
+        #         window.test = $(@)
+        #         self.attrs.setAttribute(code_type, $(@).val())
+        #         window.editor = self["#{code_type}_editor"]
 
 
 
 
-        set_editor: (type, val) -> @["#{type}_editor"].getDoc().setValue(val)
+        set_editor: (type, val) ->
+            @["#{type}_editor"].getDoc().setValue(val)
+            # console.log val
 
         set_layout: ->
             @container.find(".CodeMirror").removeClass("expansiondown expansionup")
@@ -106,6 +125,7 @@ define (require, exports, module) ->
                 self.container.find(".CodeMirror").eq(index).show()
             @css_editor.on "change", => @ifr_refresh()
             @html_editor.on "change", => @ifr_refresh()
+            @velocity_editor.on "change", => @ifr_refresh()
             @js_editor.on "change", =>
                 clearTimeout(@timeout)
                 @timeout = setTimeout(=>
