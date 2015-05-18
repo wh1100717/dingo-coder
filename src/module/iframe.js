@@ -8,9 +8,9 @@ define(function(require, exports, module) {
       this.editor = editor;
       this.ifr = document.createElement("iframe");
       this.ifr.id = "ifr_coder";
-      this.ifr.scrolling = "no";
+      this.ifr.scrolling = "yes";
+      this.ifr.frameborder = 0;
       this.ifr.setAttribute("class", "renderer coder");
-      this.ifr.setAttribute("scrolling", "yes");
       this.container.find("#renderer-container").append(this.ifr);
     }
 

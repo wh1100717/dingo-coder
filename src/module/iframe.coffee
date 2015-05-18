@@ -5,9 +5,9 @@ define (require, exports, module) ->
         constructor: (@container, @editor) ->
             @ifr = document.createElement("iframe")
             @ifr.id = "ifr_coder"
-            @ifr.scrolling = "no"
+            @ifr.scrolling = "yes"
+            @ifr.frameborder = 0
             @ifr.setAttribute("class","renderer coder")
-            @ifr.setAttribute("scrolling","yes")
             @container.find("#renderer-container").append(@ifr)
         refresh: ->
             try
