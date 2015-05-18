@@ -5,6 +5,9 @@ define (require, exports, module) ->
     require("codemirror/mode/htmlmixed/htmlmixed")
     require("codemirror/mode/css/css")
     require("codemirror/mode/javascript/javascript")
+    html = require("../module/prettify/html")
+    js = require("../module/prettify/js")
+    window.beautify = require("../module/beautify/index")
 
     class Editor
 
@@ -58,13 +61,20 @@ define (require, exports, module) ->
             }
             return
 
+        code_format: (type, content) ->
+            content = content.trim()
+            switch type
+                when "html" then beautify.html_beautify(content)
+                when "css" then beautify.css_beautify(content)
+                when "js" then beautify.js_beautify(content)
+
         lightdom_init: ->
             self = @
             window.codeList = $("<div>#{@attrs.innerHTML}</div>")
             codeList.find("textarea").each ->
                 code_type = $(@).attr("code")
-                window.test = $(@)
-                self.attrs.setAttribute(code_type, $(@).val())
+                code_content = $(@).val()
+                code_content = self.code_format(code_type, code_content)
                 window.editor = self["#{code_type}_editor"]
 
 
