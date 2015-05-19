@@ -7,11 +7,11 @@ define (require, exports, module) ->
 
     class Editor
 
-        constructor: (@container, @attrs) ->
+        constructor: (@container, @element) ->
             @container = $(@container)
             @ifr = new Iframe(@container, @)
-            @coder = new Coder(@container, @, @attrs)
-            @layout = new Layout(@container, @attrs)
+            @coder = new Coder(@container, @, @element)
+            @layout = new Layout(@container, @element)
 
         set_editor: (type, val) -> @["#{type}_editor"].getDoc().setValue(val)
 

@@ -6,10 +6,10 @@ define (require, exports, module) ->
     mode = require("./mode")
 
     class Coder
-        constructor: (@container, @editor, @attrs) ->
+        constructor: (@container, @editor, @element) ->
             self = @
             flag = 0
-            codeList = $("<div>#{@attrs.innerHTML}</div>")
+            codeList = $("<div>#{@element.innerHTML}</div>")
             @event_bind()
             @ififrame = false
             @typelist = []
@@ -33,15 +33,14 @@ define (require, exports, module) ->
                     self.container.find("#code#{code_type}").next().prepend("<div class='remind'>#{code_type}</div>")
                     code_content = $(@).val()
                     code_content = self.code_format(code_type, code_content)
-                    self.attrs.setAttribute(code_type, code_content)
+                    self.element.setAttribute(code_type, code_content)
                     if code_type in ["js", "css", "html"]
                         self.ififrame = true
                         self.editor["#{code_type}_editor"].on "change", -> self.editor.ifr.refresh()
                 )
             querycheck = setInterval =>
                 return if flag isnt 0
-                if @ififrame is false
-                   @editor.ifr.deleteiframe()
+                @editor.ifr.remove() if @ififrame is false
                 @typelist = @typelist.reverse()
                 @container.find("div[codetype=code#{i}]").prependTo(@container.find("#mode-tabs")) for i in @typelist
                 @container.find(".mode-tab").eq(0).trigger "click"
@@ -69,7 +68,7 @@ define (require, exports, module) ->
                 self.container.find("##{toshow}").next().show()
 
             @container.find(".mode").on "click", =>
-                @attrs.layout++
+                @element.layout++
                 self.editor.layout.set_layout()
 
 

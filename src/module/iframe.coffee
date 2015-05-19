@@ -22,7 +22,7 @@ define (require, exports, module) ->
                 @ifr.contentWindow.document.head.appendChild(style)
                 @ifr.contentWindow.document.body.appendChild(script)
             return
-        deleteiframe: ->
+        remove: ->
             @container.find("iframe").remove()
             @container.find(".coderead").trigger "click"
             @container.find(".coderead").unbind()

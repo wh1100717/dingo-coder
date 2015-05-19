@@ -6,14 +6,14 @@ define(function(require, exports, module) {
   beautify = require("./beautify/index");
   mode = require("./mode");
   Coder = (function() {
-    function Coder(container, editor, attrs) {
+    function Coder(container, editor, element) {
       var codeList, flag, querycheck, self;
       this.container = container;
       this.editor = editor;
-      this.attrs = attrs;
+      this.element = element;
       self = this;
       flag = 0;
-      codeList = $("<div>" + this.attrs.innerHTML + "</div>");
+      codeList = $("<div>" + this.element.innerHTML + "</div>");
       this.event_bind();
       this.ififrame = false;
       this.typelist = [];
@@ -40,7 +40,7 @@ define(function(require, exports, module) {
             self.container.find("#code" + code_type).next().prepend("<div class='remind'>" + code_type + "</div>");
             code_content = $(_this).val();
             code_content = self.code_format(code_type, code_content);
-            self.attrs.setAttribute(code_type, code_content);
+            self.element.setAttribute(code_type, code_content);
             if (code_type === "js" || code_type === "css" || code_type === "html") {
               self.ififrame = true;
               return self.editor[code_type + "_editor"].on("change", function() {
@@ -57,7 +57,7 @@ define(function(require, exports, module) {
             return;
           }
           if (_this.ififrame === false) {
-            _this.editor.ifr.deleteiframe();
+            _this.editor.ifr.remove();
           }
           _this.typelist = _this.typelist.reverse();
           ref = _this.typelist;
@@ -104,7 +104,7 @@ define(function(require, exports, module) {
       });
       return this.container.find(".mode").on("click", (function(_this) {
         return function() {
-          _this.attrs.layout++;
+          _this.element.layout++;
           return self.editor.layout.set_layout();
         };
       })(this));

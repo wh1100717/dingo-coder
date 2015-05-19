@@ -32,7 +32,7 @@ define(function(require, exports, module) {
       } catch (_error) {}
     };
 
-    Iframe.prototype.deleteiframe = function() {
+    Iframe.prototype.remove = function() {
       this.container.find("iframe").remove();
       this.container.find(".coderead").trigger("click");
       this.container.find(".coderead").unbind();
