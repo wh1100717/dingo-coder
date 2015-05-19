@@ -42,11 +42,15 @@ define (require, exports, module) ->
                 return if flag isnt 0
                 @editor.ifr.remove() if @ififrame is false
                 @typelist = @typelist.reverse()
-                @container.find("div[codetype=code#{i}]").prependTo(@container.find("#mode-tabs")) for i in @typelist
+                @fixlist i for i in @typelist
                 @container.find(".mode-tab").eq(0).trigger "click"
                 clearInterval(querycheck)
             , 100
             return
+        fixlist: (i) ->
+            @container.find("div[codetype=code#{i}]").prependTo(@container.find("#mode-tabs"))
+            @container.find("#code#{i}").next().prependTo(@container.find("#code-editor"))
+            @container.find("#code#{i}").prependTo(@container.find("#code-editor"))
 
         code_format: (type, content) ->
             content = content.trim()
