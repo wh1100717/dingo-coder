@@ -72,5 +72,11 @@ define (require, exports, module) ->
                     setTimeout(->
                         self.container.find(".coderead").click()
                     , 500)
+            @container.find(".setting").on "click", ->
+                $(@).toggleClass("active")
+                if $(@).hasClass("active")
+                    self.container.find("#setting-panel").animate({left:"-50%"},500)
+                else self.container.find("#setting-panel").animate({left:"0%"},500)
+
 
     module.exports = Layout

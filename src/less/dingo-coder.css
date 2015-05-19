@@ -644,7 +644,6 @@ span.CodeMirror-selectedtext {
   z-index: 10;
   border: none;
   background: #f9f9fb;
-  overflow: scroll;
   outline: 1px solid #222;
   width: 50%;
   color: white;
@@ -1042,4 +1041,13 @@ span.CodeMirror-selectedtext {
 }
 #code-panel {
   overflow-y: scroll;
+}
+#setting-panel {
+  width: 50%;
+  height: 100%;
+  display: inline-block;
+  position: relative;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 10;
 }

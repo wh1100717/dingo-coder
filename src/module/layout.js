@@ -88,7 +88,7 @@ define(function(require, exports, module) {
           }, 500);
         }
       });
-      return this.container.find(".coderead").on("click", function() {
+      this.container.find(".coderead").on("click", function() {
         if (!$(this).hasClass("active")) {
           $(this).addClass("active");
           self.container.find(".renderpanel").removeClass("narrow").addClass("expansionleft");
@@ -101,6 +101,18 @@ define(function(require, exports, module) {
           self.container.find(".iframeread").click();
           return setTimeout(function() {
             return self.container.find(".coderead").click();
+          }, 500);
+        }
+      });
+      return this.container.find(".setting").on("click", function() {
+        $(this).toggleClass("active");
+        if ($(this).hasClass("active")) {
+          return self.container.find("#setting-panel").animate({
+            left: "-50%"
+          }, 500);
+        } else {
+          return self.container.find("#setting-panel").animate({
+            left: "0%"
           }, 500);
         }
       });
