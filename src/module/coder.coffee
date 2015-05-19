@@ -11,9 +11,12 @@ define (require, exports, module) ->
             flag = 0
             codeList = $("<div>#{@attrs.innerHTML}</div>")
             @event_bind()
+            @ififrame = false
+            @typelist = []
             codeList.find("textarea").each ->
                 flag++
                 code_type = $(@).attr("code")
+                self.typelist.push(code_type)
                 require(["codemirror/mode/#{mode[code_type].mode}/#{mode[code_type].mode}"], =>
                     flag--
                     menu = $("<div class='mode-tab' codetype='code#{code_type}'>#{code_type}<div class='arrow-up '></div></div>")
@@ -32,11 +35,15 @@ define (require, exports, module) ->
                     code_content = self.code_format(code_type, code_content)
                     self.attrs.setAttribute(code_type, code_content)
                     if code_type in ["js", "css", "html"]
+                        self.ififrame = true
                         self.editor["#{code_type}_editor"].on "change", -> self.editor.ifr.refresh()
                 )
             querycheck = setInterval =>
                 return if flag isnt 0
-                @container.find("div[codetype='codehtml']").prependTo(@container.find("#mode-tabs"))
+                if @ififrame is false
+                   @editor.ifr.deleteiframe()
+                @typelist = @typelist.reverse()
+                @container.find("div[codetype=code#{i}]").prependTo(@container.find("#mode-tabs")) for i in @typelist
                 @container.find(".mode-tab").eq(0).trigger "click"
                 clearInterval(querycheck)
             , 100
@@ -61,7 +68,9 @@ define (require, exports, module) ->
                 toshow = $(@).attr("codetype")
                 self.container.find("##{toshow}").next().show()
 
-            @container.find(".mode").on "click", => @attrs.layout++
+            @container.find(".mode").on "click", =>
+                @attrs.layout++
+                self.editor.layout.set_layout()
 
 
     module.exports = Coder

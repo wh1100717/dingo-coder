@@ -32,6 +32,13 @@ define(function(require, exports, module) {
       } catch (_error) {}
     };
 
+    Iframe.prototype.deleteiframe = function() {
+      this.container.find("iframe").remove();
+      this.container.find(".coderead").trigger("click");
+      this.container.find(".coderead").unbind();
+      return this.container.find(".iframeread").removeClass("active").unbind();
+    };
+
     return Iframe;
 
   })();

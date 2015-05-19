@@ -17,7 +17,7 @@ define(function(require, exports, module) {
           this.container.find("#mode-tabs").removeClass("tabup").addClass("tabdown");
           this.container.find(".CodeMirror").removeClass("expansionup").addClass("expansiondown");
           this.container.find(".mode-tab").removeClass("active");
-          this.container.find(".mode-tab").eq(0).addClass("active");
+          this.container.find(".mode-tab").eq(0).trigger("click");
           break;
         case 2:
           this.container.find("#mode-tabs #file-dropdown-toggle #file-dropdown").hide();

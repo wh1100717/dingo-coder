@@ -15,10 +15,13 @@ define(function(require, exports, module) {
       flag = 0;
       codeList = $("<div>" + this.attrs.innerHTML + "</div>");
       this.event_bind();
+      this.ififrame = false;
+      this.typelist = [];
       codeList.find("textarea").each(function() {
         var code_type;
         flag++;
         code_type = $(this).attr("code");
+        self.typelist.push(code_type);
         return require(["codemirror/mode/" + mode[code_type].mode + "/" + mode[code_type].mode], (function(_this) {
           return function() {
             var code_content, codemirrorinit, menu;
@@ -39,6 +42,7 @@ define(function(require, exports, module) {
             code_content = self.code_format(code_type, code_content);
             self.attrs.setAttribute(code_type, code_content);
             if (code_type === "js" || code_type === "css" || code_type === "html") {
+              self.ififrame = true;
               return self.editor[code_type + "_editor"].on("change", function() {
                 return self.editor.ifr.refresh();
               });
@@ -48,10 +52,19 @@ define(function(require, exports, module) {
       });
       querycheck = setInterval((function(_this) {
         return function() {
+          var i, j, len, ref;
           if (flag !== 0) {
             return;
           }
-          _this.container.find("div[codetype='codehtml']").prependTo(_this.container.find("#mode-tabs"));
+          if (_this.ififrame === false) {
+            _this.editor.ifr.deleteiframe();
+          }
+          _this.typelist = _this.typelist.reverse();
+          ref = _this.typelist;
+          for (j = 0, len = ref.length; j < len; j++) {
+            i = ref[j];
+            _this.container.find("div[codetype=code" + i + "]").prependTo(_this.container.find("#mode-tabs"));
+          }
           _this.container.find(".mode-tab").eq(0).trigger("click");
           return clearInterval(querycheck);
         };
@@ -91,7 +104,8 @@ define(function(require, exports, module) {
       });
       return this.container.find(".mode").on("click", (function(_this) {
         return function() {
-          return _this.attrs.layout++;
+          _this.attrs.layout++;
+          return self.editor.layout.set_layout();
         };
       })(this));
     };

@@ -13,7 +13,7 @@ define (require, exports, module) ->
                     @container.find("#mode-tabs").removeClass("tabup").addClass("tabdown")
                     @container.find(".CodeMirror").removeClass("expansionup").addClass("expansiondown")
                     @container.find(".mode-tab").removeClass("active")
-                    @container.find(".mode-tab").eq(0).addClass("active")
+                    @container.find(".mode-tab").eq(0).trigger "click"
                 when 2
                     @container.find("#mode-tabs #file-dropdown-toggle #file-dropdown").hide()
                     @container.find(".CodeMirror").show().addClass("expansionup")
