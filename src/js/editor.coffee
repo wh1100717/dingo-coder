@@ -11,7 +11,7 @@ define (require, exports, module) ->
             @container = $(@container)
             @ifr = new Iframe(@container, @)
             @coder = new Coder(@container, @, @element)
-            @layout = new Layout(@container, @element)
+            @layout = new Layout(@container, @, @element)
 
         set_editor: (type, val) -> @["#{type}_editor"].getDoc().setValue(val)
 

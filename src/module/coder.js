@@ -42,7 +42,9 @@ define(function(require, exports, module) {
             code_content = self.code_format(code_type, code_content);
             self.element.setAttribute(code_type, code_content);
             if (code_type === "js" || code_type === "css" || code_type === "html") {
-              self.ififrame = true;
+              if (code_type === "html") {
+                self.ififrame = true;
+              }
               return self.editor[code_type + "_editor"].on("change", function() {
                 return self.editor.ifr.refresh();
               });

@@ -3,8 +3,9 @@ define(function(require, exports, module) {
   "use strict";
   var Layout;
   Layout = (function() {
-    function Layout(container, attrs) {
+    function Layout(container, editor, attrs) {
       this.container = container;
+      this.editor = editor;
       this.attrs = attrs;
       this.event_bind();
     }
@@ -20,11 +21,63 @@ define(function(require, exports, module) {
           this.container.find(".mode-tab").eq(0).trigger("click");
           break;
         case 2:
+          if (this.editor.coder.typelist.length > 2) {
+            this.container.find("#mode-tabs #file-dropdown-toggle #file-dropdown").hide();
+            this.container.find(".CodeMirror").show().addClass("expansionup");
+            this.container.find("#mode-tabs").addClass("tabup");
+          } else {
+            this.attrs.layout++;
+            this.set_layout();
+          }
+          break;
+        case 3:
+          this.container.find("#mode-tabs").hide();
+          this.container.find(".CodeMirror").hide();
           this.container.find("#mode-tabs #file-dropdown-toggle #file-dropdown").hide();
-          this.container.find(".CodeMirror").show().addClass("expansionup");
-          this.container.find("#mode-tabs").addClass("tabup");
+          this.outerheight = this.container.find("#code-editor").height();
+          if (this.editor.coder.typelist.length > 2 && this.editor.coder.ififrame === true) {
+            this.outerheight = (this.outerheight + 35) / 2;
+            this.container.find(".CodeMirror").eq(0).show().removeClass("expansionup").css("height", "" + this.outerheight);
+            this.container.find(".CodeMirror").eq(1).show().removeClass("expansionup").css("height", "" + this.outerheight);
+            this.container.find(".renderer").css({
+              "height": "50%"
+            });
+            this.container.find(".CodeMirror").eq(2).prev().appendTo(this.container.find("#renderer-container"));
+            this.container.find(".CodeMirror").eq(2).show().removeClass("expansionup").css({
+              "height": "50%",
+              "position": "relative",
+              "top": "50%"
+            }).appendTo(this.container.find("#renderer-container"));
+          } else {
+            this.attrs.layout++;
+            this.set_layout();
+          }
+          break;
+        case 4:
+          if (this.editor.coder.typelist.length > 2 && this.editor.coder.ififrame === true) {
+            this.container.find("#renderer-container").children().eq(2).insertAfter(this.container.find("#code-editor .CodeMirror").eq(1));
+            this.container.find("#renderer-container").children().eq(1).insertAfter(this.container.find("#code-editor .CodeMirror").eq(1));
+            this.container.find(".renderer").css({
+              "height": "100%"
+            });
+          } else if (this.editor.coder.typelist.length === 2) {
+            this.outerheight = (this.outerheight + 35) / 2;
+            this.container.find(".CodeMirror").show().css("height", "" + this.outerheight);
+          } else if (this.editor.coder.typelist.length === 1) {
+            this.outerheight = this.outerheight * 2;
+            this.container.find(".CodeMirror").show().css("height", "" + this.outerheight);
+          } else {
+            this.attrs.layout++;
+            this.set_layout();
+          }
           break;
         default:
+          this.container.find("#mode-tabs").show().addClass("tabdown");
+          this.outerheight = this.container.find("#code-editor").height();
+          this.container.find(".CodeMirror").css("height", "" + this.outerheight);
+          this.container.find(".CodeMirror").eq(2).css({
+            "top": "0"
+          });
           this.attrs.layout = 1;
           this.set_layout();
       }

@@ -12,7 +12,7 @@ define(function(require, exports, module) {
       this.container = $(this.container);
       this.ifr = new Iframe(this.container, this);
       this.coder = new Coder(this.container, this, this.element);
-      this.layout = new Layout(this.container, this.element);
+      this.layout = new Layout(this.container, this, this.element);
     }
 
     Editor.prototype.set_editor = function(type, val) {

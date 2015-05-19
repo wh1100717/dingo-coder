@@ -2,7 +2,7 @@ define (require, exports, module) ->
     "use strict"
 
     class Layout
-        constructor: (@container, @attrs) ->
+        constructor: (@container, @editor, @attrs) ->
             @event_bind()
 
         set_layout: ->
@@ -15,10 +15,51 @@ define (require, exports, module) ->
                     @container.find(".mode-tab").removeClass("active")
                     @container.find(".mode-tab").eq(0).trigger "click"
                 when 2
+                    # 也要判断下有没三块
+                    if @editor.coder.typelist.length > 2
+                        @container.find("#mode-tabs #file-dropdown-toggle #file-dropdown").hide()
+                        @container.find(".CodeMirror").show().addClass("expansionup")
+                        @container.find("#mode-tabs").addClass("tabup")
+                    else
+                        @attrs.layout++
+                        @set_layout()
+
+                when 3
+                    # 要判定下有没有iframe而且有没有三块,注意iframe的判定可以放在初始化
+                    @container.find("#mode-tabs").hide()
+                    @container.find(".CodeMirror").hide()
                     @container.find("#mode-tabs #file-dropdown-toggle #file-dropdown").hide()
-                    @container.find(".CodeMirror").show().addClass("expansionup")
-                    @container.find("#mode-tabs").addClass("tabup")
+                    @outerheight = @container.find("#code-editor").height()
+                    if @editor.coder.typelist.length > 2 and @editor.coder.ififrame is true
+                        @outerheight = (@outerheight + 35) / 2
+                        @container.find(".CodeMirror").eq(0).show().removeClass("expansionup").css("height","#{@outerheight}")
+                        @container.find(".CodeMirror").eq(1).show().removeClass("expansionup").css("height","#{@outerheight}")
+                        @container.find(".renderer").css({"height":"50%"})
+                        @container.find(".CodeMirror").eq(2).prev().appendTo(@container.find("#renderer-container"))
+                        @container.find(".CodeMirror").eq(2).show().removeClass("expansionup").css({"height":"50%";"position":"relative";"top":"50%"}).appendTo(@container.find("#renderer-container"))
+                    else
+                        @attrs.layout++
+                        @set_layout()
+                when 4
+                    if @editor.coder.typelist.length > 2 and @editor.coder.ififrame is true
+                        @container.find("#renderer-container").children().eq(2).insertAfter(@container.find("#code-editor .CodeMirror").eq(1))
+                        @container.find("#renderer-container").children().eq(1).insertAfter(@container.find("#code-editor .CodeMirror").eq(1))
+                        @container.find(".renderer").css({"height":"100%"})
+                    else if @editor.coder.typelist.length is 2
+                        @outerheight = (@outerheight + 35) / 2
+                        @container.find(".CodeMirror").show().css("height","#{@outerheight}")
+                    else if @editor.coder.typelist.length is 1
+                        @outerheight = @outerheight * 2
+                        @container.find(".CodeMirror").show().css("height","#{@outerheight}")
+                    else
+                        @attrs.layout++
+                        @set_layout()
+
                 else
+                    @container.find("#mode-tabs").show().addClass("tabdown")
+                    @outerheight = @container.find("#code-editor").height()
+                    @container.find(".CodeMirror").css("height","#{@outerheight}")
+                    @container.find(".CodeMirror").eq(2).css("top":"0")
                     @attrs.layout = 1
                     @set_layout()
             return

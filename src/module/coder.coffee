@@ -35,7 +35,7 @@ define (require, exports, module) ->
                     code_content = self.code_format(code_type, code_content)
                     self.element.setAttribute(code_type, code_content)
                     if code_type in ["js", "css", "html"]
-                        self.ififrame = true
+                        if code_type is "html" then self.ififrame = true
                         self.editor["#{code_type}_editor"].on "change", -> self.editor.ifr.refresh()
                 )
             querycheck = setInterval =>
