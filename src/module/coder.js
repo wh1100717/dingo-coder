@@ -63,7 +63,7 @@ define(function(require, exports, module) {
           ref = _this.typelist;
           for (j = 0, len = ref.length; j < len; j++) {
             i = ref[j];
-            _this.container.find("div[codetype=code" + i + "]").prependTo(_this.container.find("#mode-tabs"));
+            _this.fixlist(i);
           }
           _this.container.find(".mode-tab").eq(0).trigger("click");
           return clearInterval(querycheck);
@@ -71,6 +71,12 @@ define(function(require, exports, module) {
       })(this), 100);
       return;
     }
+
+    Coder.prototype.fixlist = function(i) {
+      this.container.find("div[codetype=code" + i + "]").prependTo(this.container.find("#mode-tabs"));
+      this.container.find("#code" + i).next().prependTo(this.container.find("#code-editor"));
+      return this.container.find("#code" + i).prependTo(this.container.find("#code-editor"));
+    };
 
     Coder.prototype.code_format = function(type, content) {
       content = content.trim();
