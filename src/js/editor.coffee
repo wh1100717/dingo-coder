@@ -1,9 +1,9 @@
 define (require, exports, module) ->
     "use strict"
 
-    Iframe = require("../module/iframe")
-    Coder = require("../module/coder")
-    Layout = require("../module/layout")
+    Iframe = require("./module/iframe")
+    Coder = require("./module/coder")
+    Layout = require("./module/layout")
 
     class Editor
 

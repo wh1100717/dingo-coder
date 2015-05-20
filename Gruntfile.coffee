@@ -63,12 +63,6 @@ module.exports = (grunt) ->
                 src: ["js/**/*.js"]
                 dest: ".tmp/build/"
             }
-            module: {
-                expand: true
-                cwd: "src/"
-                src: ["module/**/*.js"]
-                dest: ".tmp/build/"
-            }
             img: {
                 expand: true
                 cwd: "src/"
@@ -108,7 +102,7 @@ module.exports = (grunt) ->
                 files: [{
                     expand: true
                     cwd: ".tmp/build/"
-                    src: ["js/**/*.js", "module/**/*.js"]
+                    src: ["js/**/*.js"]
                     dest: "build/"
                 }]
             }
@@ -159,10 +153,6 @@ module.exports = (grunt) ->
                 files: 'src/img/**'
                 tasks: ['copy:img']
             }
-            module: {
-                files: 'src/module/**'
-                tasks: ['copy:module']
-            }
             livereload: {
                 options: {
                     livereload: '<%= connect.options.livereload %>'
@@ -197,7 +187,6 @@ module.exports = (grunt) ->
     grunt.registerTask 'servebuild', [
         'clean:tmp'
         'copy:js'
-        'copy:module'
         'copy:img'
         'copy:bower'
         'less'

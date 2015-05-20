@@ -52,12 +52,6 @@ module.exports = function(grunt) {
         src: ["js/**/*.js"],
         dest: ".tmp/build/"
       },
-      module: {
-        expand: true,
-        cwd: "src/",
-        src: ["module/**/*.js"],
-        dest: ".tmp/build/"
-      },
       img: {
         expand: true,
         cwd: "src/",
@@ -98,7 +92,7 @@ module.exports = function(grunt) {
           {
             expand: true,
             cwd: ".tmp/build/",
-            src: ["js/**/*.js", "module/**/*.js"],
+            src: ["js/**/*.js"],
             dest: "build/"
           }
         ]
@@ -159,10 +153,6 @@ module.exports = function(grunt) {
         files: 'src/img/**',
         tasks: ['copy:img']
       },
-      module: {
-        files: 'src/module/**',
-        tasks: ['copy:module']
-      },
       livereload: {
         options: {
           livereload: '<%= connect.options.livereload %>'
@@ -191,7 +181,7 @@ module.exports = function(grunt) {
       }
     }
   });
-  grunt.registerTask('servebuild', ['clean:tmp', 'copy:js', 'copy:module', 'copy:img', 'copy:bower', 'less']);
+  grunt.registerTask('servebuild', ['clean:tmp', 'copy:js', 'copy:img', 'copy:bower', 'less']);
   grunt.registerTask('build', ['clean:*', 'less', 'cssmin', 'usebanner', 'copy:*', 'uglify:js', 'string-replace']);
   grunt.registerTask('serve', ['servebuild', 'connect:livereload', 'watch']);
   grunt.registerTask('server', ['serve']);

@@ -2,8 +2,8 @@ define (require, exports, module) ->
     "use strict"
 
     CodeMirror = require("codemirror/lib/codemirror")
-    beautify = require("./beautify/index")
     mode = require("./mode")
+    beautify = require("../lib/beautify/index")
 
     class Coder
         constructor: (@editor) ->

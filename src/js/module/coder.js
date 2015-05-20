@@ -3,8 +3,8 @@ define(function(require, exports, module) {
   "use strict";
   var CodeMirror, Coder, beautify, mode;
   CodeMirror = require("codemirror/lib/codemirror");
-  beautify = require("./beautify/index");
   mode = require("./mode");
+  beautify = require("../lib/beautify/index");
   Coder = (function() {
     function Coder(editor) {
       var flag, querycheck, self;

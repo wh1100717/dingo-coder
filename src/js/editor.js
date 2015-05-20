@@ -2,9 +2,9 @@
 define(function(require, exports, module) {
   "use strict";
   var Coder, Editor, Iframe, Layout;
-  Iframe = require("../module/iframe");
-  Coder = require("../module/coder");
-  Layout = require("../module/layout");
+  Iframe = require("./module/iframe");
+  Coder = require("./module/coder");
+  Layout = require("./module/layout");
   Editor = (function() {
     function Editor(container, element, service) {
       this.container = container;
