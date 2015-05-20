@@ -8,8 +8,7 @@ define(function(require, exports, module) {
   mode = require("./module/mode");
   Index = {};
   Index.init = function() {
-    var service;
-    service = new Service();
+    window.service = new Service();
     Polymer("dingo-coder", {
       icon: "/img/logo.png",
       title: "Dingo Coder",

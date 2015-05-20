@@ -9,7 +9,7 @@ define (require, exports, module) ->
     Index = {}
 
     Index.init = ->
-        service = new Service()
+        window.service = new Service()
         Polymer "dingo-coder", {
             icon:"/img/logo.png"
             title: "Dingo Coder"

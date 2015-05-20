@@ -1,13 +1,11 @@
 define (require, exports, module) ->
     "use strict"
 
-    Firebase = require("firebase")
-    UserService = require("./userService")
+    AuthService = require("./authService")
 
     class Service
         constructor: ->
-            @fbRef = new Firebase("https://dingo-coder.firebaseio.com/")
-            @userService = new UserService(@fbRef)
-        getUserService: -> @userService
+            @authService = new AuthService(@fbRef)
+        getUserService: -> @authService
 
     module.exports = Service

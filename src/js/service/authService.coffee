@@ -3,46 +3,48 @@ define (require, exports, module) ->
 
     Firebase = require("firebase")
 
-    class UserService
+    class AuthService
 
-        constructor: (@fbRef) ->
+        constructor: ->
+            # @authRef = new Firebase("https://dingo-coder.firebaseio.com/")
+            @authRef = new Firebase("https://luminous-fire-9425.firebaseio.com/")
 
-        getUser: -> @fbRef.getAuth()
+        getUser: -> @authRef.getAuth()
 
         register: (email, password, callback) ->
-            @fbRef.createUser {
+            @authRef.createUser {
                 email: email
                 password: password
             }, (error, userData) -> callback(error, userData) if callback?
             return
 
         login: (email, password, callback) ->
-            fbRef.authWithPassword {
+            authRef.authWithPassword {
                 email: email
                 password: password
             }, (error, authData) -> callback(error, authData) if callback?
             return
         logout: ->
-            @fbRef.unauth()
+            @authRef.unauth()
             return
         changeEmail: (oldEmail, newEmail, password, callback) ->
-            @fbRef.changeEmail {
+            @authRef.changeEmail {
                 oldEmail: oldEmail
                 newEmail: newEmail
                 password: password
             }, (error) -> callback(error) if callback?
             return
         changePassword: (email, oldPassword, newPassword, callback) ->
-            @fbRef.changePassword {
+            @authRef.changePassword {
                 email: email
                 oldPassword: oldPassword
                 newPassword: newPassword
             }, (error) -> callback(error) if callback?
             return
         resetPassword: (email, callback) ->
-            @fbRef.resetPassword {
+            @authRef.resetPassword {
                 email: email
             }, (error) -> callback(error) if callback?
             return
 
-    module.exports = UserService
+    module.exports = AuthService
