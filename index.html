@@ -1,38 +1,86 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>Dingo-coder by wh1100717</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">Dingo-coder</h1>
-      <h2 class="project-tagline">Web Coder &amp;&amp; Preview in Web Components</h2>
-      <a href="https://github.com/wh1100717/dingo-coder" class="btn">View on GitHub</a>
-      <a href="https://github.com/wh1100717/dingo-coder/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/wh1100717/dingo-coder/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>Dingo</title>
+    <link rel="icon" href="https://raw.githubusercontent.com/wh1100717/dingo-coder/master/build/img/favicon.ico" type="image/x-icon">
+    <script src="https://raw.githubusercontent.com/wh1100717/dingo-coder/master/build/vendor/webcomponentsjs/webcomponents.min.js"></script>
+    <link rel="import" href="https://raw.githubusercontent.com/wh1100717/dingo-coder/master/build/dingo-coder.html">
+    <style>
+    body {
+        direction: ltr;
+        background-color: white;
+        color: white;
+        font-family: 'Arial';
+        font-size: 13px;
+        padding: 0px !important;
+        margin: 0px !important;
+        line-height: 1.5;
+        font-style: normal;
+        font-weight: normal;
+        height: 100%;
+    }
+    #wrap {
+        min-height: 100%;
+        height: 600px;
+        width:850px;
+        margin: 0 auto -60px;
+        max-width: 1100px;
+    }    
+    </style>
+</head>
+<body>
+    <div style="height:20px;width:100%"></div>
+    <div id="wrap">
+        <dingo-coder
+            title="Dingo Coder"
+            icon="https://raw.githubusercontent.com/wh1100717/dingo-coder/master/build/img/logo.png"
+            layout="1">
+            <textarea code="html" style="display: none">
+                <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+                <div class="example">
+                    <button type="button" class="btn btn-default">Default</button>
+                    <button type="button" class="btn btn-primary">Primary</button>
+                    <button type="button" class="btn btn-success">Success</button>
+                    <button type="button" class="btn btn-info">Info</button>
+                    <button type="button" class="btn btn-warning">Warning</button>
+                    <button type="button" class="btn btn-danger">Danger</button>
+                    <button type="button" class="btn btn-link">Link</button>
+                </div>
+            </textarea>
+            <textarea code="css" style="display:none">
+                .example {
+                    margin-right: 0;
+                    margin-left: 0;
+                    background-color: #fff;
+                    border-color: #ddd;
+                    border-width: 1px;
+                    border-radius: 4px 4px 0 0;
+                    -webkit-box-shadow: none;
+                    box-shadow: none;
+                    position: relative;
+                    padding: 45px 15px 45px 15px;
+                    border-style: solid;
+                }
+            </textarea>
+            <textarea code="js" style="display:none">
+                console.log(123);
+            </textarea>
+            <textarea code="velocity" style="display:none">
+                The RHS can also be a simple arithmetic expression, such as:
+                Addition: #set( $value = $foo + 1 )
+                   Subtraction: #set( $value = $bar - 1 )
+                   Multiplication: #set( $value = $foo * $bar )
+                   Division: #set( $value = $foo / $bar )
+                   Remainder: #set( $value = $foo % $bar )
+            </textarea>
+        </dingo-coder>
+    </div>
 
-    <section class="main-content">
-      <h1>
-<a id="dingo-coder" class="anchor" href="#dingo-coder" aria-hidden="true"><span class="octicon octicon-link"></span></a>dingo-coder</h1>
-
-<p>Web Coder &amp;&amp; Preview in Web Components</p>
-
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/wh1100717/dingo-coder">Dingo-coder</a> is maintained by <a href="https://github.com/wh1100717">wh1100717</a>.</span>
-
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
-
-    </section>
-
-  
-  </body>
+</body>
 </html>
-
