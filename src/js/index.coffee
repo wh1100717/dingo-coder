@@ -6,15 +6,17 @@ define (require, exports, module) ->
     Service = require("./service/service")
     mode = require("./module/mode")
 
+    #For Test
+    window.service = Service
+
     Index = {}
 
     Index.init = ->
-        window.service = new Service()
         Polymer "dingo-coder", {
             icon:"/img/logo.png"
             title: "Dingo Coder"
             layout: 1
-            ready: -> @editor = new Editor(@$.editor, @, service)
+            ready: -> @editor = new Editor(@$.editor, @, Service)
             attributeChanged: (attrName, oldVal, newVal) ->
                 @editor.set_editor(attrName, newVal) if mode[attrName]?
                 @editor.refresh() if attrName in ["js", "css", "html"]

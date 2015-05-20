@@ -6,15 +6,15 @@ define(function(require, exports, module) {
   Editor = require("./editor");
   Service = require("./service/service");
   mode = require("./module/mode");
+  window.service = Service;
   Index = {};
   Index.init = function() {
-    window.service = new Service();
     Polymer("dingo-coder", {
       icon: "/img/logo.png",
       title: "Dingo Coder",
       layout: 1,
       ready: function() {
-        return this.editor = new Editor(this.$.editor, this, service);
+        return this.editor = new Editor(this.$.editor, this, Service);
       },
       attributeChanged: function(attrName, oldVal, newVal) {
         if (mode[attrName] != null) {

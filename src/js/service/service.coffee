@@ -2,10 +2,12 @@ define (require, exports, module) ->
     "use strict"
 
     AuthService = require("./authService")
+    UserService = require("./userService")
 
-    class Service
-        constructor: ->
-            @authService = new AuthService(@fbRef)
-        getUserService: -> @authService
+    Service = {}
+
+    Service.authService = new AuthService()
+
+    Service.userService = new UserService(Service)
 
     module.exports = Service

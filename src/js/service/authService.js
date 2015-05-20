@@ -4,8 +4,19 @@ define(function(require, exports, module) {
   var AuthService, Firebase;
   Firebase = require("firebase");
   AuthService = (function() {
+
+    /*
+     *  AuthService用来处理用户的权限等内容。
+     *  getUser:        获取当前用户对象
+     *  register:       注册新用户
+     *  login:          用户登陆
+     *  logout:         用户登出
+     *  changeEmail:    修改邮箱
+     *  changePassword: 修改密码
+     *  resetPassword:  重置密码(会给邮箱发重置密码的邮件)
+     */
     function AuthService() {
-      this.authRef = new Firebase("https://luminous-fire-9425.firebaseio.com/");
+      this.authRef = new Firebase("https://dingo-coder.firebaseio.com/");
     }
 
     AuthService.prototype.getUser = function() {
@@ -24,7 +35,7 @@ define(function(require, exports, module) {
     };
 
     AuthService.prototype.login = function(email, password, callback) {
-      authRef.authWithPassword({
+      this.authRef.authWithPassword({
         email: email,
         password: password
       }, function(error, authData) {
