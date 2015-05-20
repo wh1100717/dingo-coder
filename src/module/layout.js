@@ -3,17 +3,17 @@ define(function(require, exports, module) {
   "use strict";
   var Layout;
   Layout = (function() {
-    function Layout(container, editor, attrs) {
-      this.container = container;
+    function Layout(editor) {
       this.editor = editor;
-      this.attrs = attrs;
+      this.container = this.editor.container;
+      this.element = this.editor.element;
       this.event_bind();
     }
 
     Layout.prototype.set_layout = function() {
       this.container.find(".CodeMirror").removeClass("expansiondown expansionup");
       this.container.find("#mode-tabs").removeClass("tabup tabdown");
-      switch (this.attrs.layout) {
+      switch (this.element.layout) {
         case 1:
           this.container.find("#mode-tabs").removeClass("tabup").addClass("tabdown");
           this.container.find(".CodeMirror").removeClass("expansionup").addClass("expansiondown");
@@ -26,7 +26,7 @@ define(function(require, exports, module) {
             this.container.find(".CodeMirror").show().addClass("expansionup");
             this.container.find("#mode-tabs").addClass("tabup");
           } else {
-            this.attrs.layout++;
+            this.element.layout++;
             this.set_layout();
           }
           break;
@@ -49,7 +49,7 @@ define(function(require, exports, module) {
               "top": "50%"
             }).appendTo(this.container.find("#renderer-container"));
           } else {
-            this.attrs.layout++;
+            this.element.layout++;
             this.set_layout();
           }
           break;
@@ -67,7 +67,7 @@ define(function(require, exports, module) {
             this.outerheight = this.outerheight * 2;
             this.container.find(".CodeMirror").show().css("height", "" + this.outerheight);
           } else {
-            this.attrs.layout++;
+            this.element.layout++;
             this.set_layout();
           }
           break;
@@ -78,7 +78,7 @@ define(function(require, exports, module) {
           this.container.find(".CodeMirror").eq(2).css({
             "top": "0"
           });
-          this.attrs.layout = 1;
+          this.element.layout = 1;
           this.set_layout();
       }
     };
@@ -159,15 +159,9 @@ define(function(require, exports, module) {
       });
       return this.container.find(".setting").on("click", function() {
         $(this).toggleClass("active");
-        if ($(this).hasClass("active")) {
-          return self.container.find("#setting-panel").animate({
-            left: "-50%"
-          }, 500);
-        } else {
-          return self.container.find("#setting-panel").animate({
-            left: "0%"
-          }, 500);
-        }
+        return self.container.find("#setting-panel").animate({
+          left: $(this).hasClass("active") ? "-50%" : "0%"
+        }, 500);
       });
     };
 

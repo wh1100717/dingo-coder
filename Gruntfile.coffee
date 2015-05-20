@@ -176,22 +176,22 @@ module.exports = (grunt) ->
                 ]
             }
         }
-        # 'string-replace': {
-        #     dist: {
-        #         files: [{
-        #             expand: true
-        #             cwd: "build/"
-        #             src: "*.html"
-        #             dest: "build/"
-        #         }]
-        #         options: {
-        #             replacements: [{
-        #                 pattern: /localhost:9008/ig,
-        #                 replacement: 'g.tbcdn.cn/forest/dingo/<%= pkg.version %>'
-        #             }]
-        #         }
-        #     }
-        # }
+        'string-replace': {
+            dist: {
+                files: [{
+                    expand: true
+                    cwd: "build/"
+                    src: "*.html"
+                    dest: "build/"
+                }]
+                options: {
+                    replacements: [{
+                        pattern: /localhost:9008/ig,
+                        replacement: 'dingo.emptystack.net'
+                    }]
+                }
+            }
+        }
     }
 
     grunt.registerTask 'servebuild', [
@@ -208,7 +208,7 @@ module.exports = (grunt) ->
         'less', 'cssmin', 'usebanner'   #Build Css
         'copy:*'
         'uglify:js'                     #Uglify JS
-        # 'string-replace'                #HTML localhost replacement
+        'string-replace'                #HTML localhost replacement
     ]
 
     grunt.registerTask 'serve', ['servebuild', 'connect:livereload', 'watch']

@@ -7,12 +7,12 @@ define (require, exports, module) ->
 
     Element = {}
 
-    Element.init = ->
+    Element.init = (service) ->
         Polymer "dingo-coder", {
             icon:"/img/logo.png"
             title: "Dingo Coder"
             layout: 1
-            ready: -> @editor = new Editor(@$.editor, @)
+            ready: -> @editor = new Editor(@$.editor, @, service)
             attributeChanged: (attrName, oldVal, newVal) ->
                 @editor.set_editor(attrName, newVal) if mode[attrName]?
                 @editor.refresh() if attrName in ["js", "css", "html"]

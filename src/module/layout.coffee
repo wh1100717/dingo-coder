@@ -2,13 +2,15 @@ define (require, exports, module) ->
     "use strict"
 
     class Layout
-        constructor: (@container, @editor, @attrs) ->
+        constructor: (@editor) ->
+            @container = @editor.container
+            @element = @editor.element
             @event_bind()
 
         set_layout: ->
             @container.find(".CodeMirror").removeClass("expansiondown expansionup")
             @container.find("#mode-tabs").removeClass("tabup tabdown")
-            switch @attrs.layout
+            switch @element.layout
                 when 1
                     @container.find("#mode-tabs").removeClass("tabup").addClass("tabdown")
                     @container.find(".CodeMirror").removeClass("expansionup").addClass("expansiondown")
@@ -21,7 +23,7 @@ define (require, exports, module) ->
                         @container.find(".CodeMirror").show().addClass("expansionup")
                         @container.find("#mode-tabs").addClass("tabup")
                     else
-                        @attrs.layout++
+                        @element.layout++
                         @set_layout()
 
                 when 3
@@ -38,7 +40,7 @@ define (require, exports, module) ->
                         @container.find(".CodeMirror").eq(2).prev().appendTo(@container.find("#renderer-container"))
                         @container.find(".CodeMirror").eq(2).show().removeClass("expansionup").css({"height":"50%";"position":"relative";"top":"50%"}).appendTo(@container.find("#renderer-container"))
                     else
-                        @attrs.layout++
+                        @element.layout++
                         @set_layout()
                 when 4
                     if @editor.coder.typelist.length > 2 and @editor.coder.ififrame is true
@@ -52,7 +54,7 @@ define (require, exports, module) ->
                         @outerheight = @outerheight * 2
                         @container.find(".CodeMirror").show().css("height","#{@outerheight}")
                     else
-                        @attrs.layout++
+                        @element.layout++
                         @set_layout()
 
                 else
@@ -60,7 +62,7 @@ define (require, exports, module) ->
                     @outerheight = @container.find("#code-editor").height()
                     @container.find(".CodeMirror").css("height","#{@outerheight}")
                     @container.find(".CodeMirror").eq(2).css("top":"0")
-                    @attrs.layout = 1
+                    @element.layout = 1
                     @set_layout()
             return
 
@@ -115,9 +117,9 @@ define (require, exports, module) ->
                     , 500)
             @container.find(".setting").on "click", ->
                 $(@).toggleClass("active")
-                if $(@).hasClass("active")
-                    self.container.find("#setting-panel").animate({left:"-50%"},500)
-                else self.container.find("#setting-panel").animate({left:"0%"},500)
+                self.container.find("#setting-panel").animate {
+                    left: if $(@).hasClass("active") then "-50%" else "0%"
+                }, 500
 
 
     module.exports = Layout

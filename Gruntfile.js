@@ -169,10 +169,30 @@ module.exports = function(grunt) {
         },
         files: ['{,*/}*.html', '.tmp/build/**/css/{,*/}*.css', '.tmp/build/**/js/{,*/}*.js', '.tmp/build/**/module/**', '.tmp/build/**/img/**']
       }
+    },
+    'string-replace': {
+      dist: {
+        files: [
+          {
+            expand: true,
+            cwd: "build/",
+            src: "*.html",
+            dest: "build/"
+          }
+        ],
+        options: {
+          replacements: [
+            {
+              pattern: /localhost:9008/ig,
+              replacement: 'dingo.emptystack.net'
+            }
+          ]
+        }
+      }
     }
   });
   grunt.registerTask('servebuild', ['clean:tmp', 'copy:js', 'copy:module', 'copy:img', 'copy:bower', 'less']);
-  grunt.registerTask('build', ['clean:*', 'less', 'cssmin', 'usebanner', 'copy:*', 'uglify:js']);
+  grunt.registerTask('build', ['clean:*', 'less', 'cssmin', 'usebanner', 'copy:*', 'uglify:js', 'string-replace']);
   grunt.registerTask('serve', ['servebuild', 'connect:livereload', 'watch']);
   grunt.registerTask('server', ['serve']);
   grunt.registerTask('default', ['serve']);

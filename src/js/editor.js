@@ -6,13 +6,14 @@ define(function(require, exports, module) {
   Coder = require("../module/coder");
   Layout = require("../module/layout");
   Editor = (function() {
-    function Editor(container, element) {
+    function Editor(container, element, service) {
       this.container = container;
       this.element = element;
+      this.service = service;
       this.container = $(this.container);
-      this.ifr = new Iframe(this.container, this);
-      this.coder = new Coder(this.container, this, this.element);
-      this.layout = new Layout(this.container, this, this.element);
+      this.ifr = new Iframe(this);
+      this.coder = new Coder(this);
+      this.layout = new Layout(this);
     }
 
     Editor.prototype.set_editor = function(type, val) {

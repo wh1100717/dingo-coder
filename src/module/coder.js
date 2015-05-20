@@ -6,11 +6,11 @@ define(function(require, exports, module) {
   beautify = require("./beautify/index");
   mode = require("./mode");
   Coder = (function() {
-    function Coder(container, editor, element) {
+    function Coder(editor) {
       var codeList, flag, querycheck, self;
-      this.container = container;
       this.editor = editor;
-      this.element = element;
+      this.container = this.editor.container;
+      this.element = this.editor.element;
       self = this;
       flag = 0;
       codeList = $("<div>" + this.element.innerHTML + "</div>");

@@ -3,9 +3,9 @@ define(function(require, exports, module) {
   "use strict";
   var Iframe;
   Iframe = (function() {
-    function Iframe(container, editor) {
-      this.container = container;
+    function Iframe(editor) {
       this.editor = editor;
+      this.container = this.editor.container;
       this.ifr = document.createElement("iframe");
       this.ifr.id = "ifr_coder";
       this.ifr.scrolling = "yes";

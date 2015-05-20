@@ -6,7 +6,9 @@ define (require, exports, module) ->
     mode = require("./mode")
 
     class Coder
-        constructor: (@container, @editor, @element) ->
+        constructor: (@editor) ->
+            @container = @editor.container
+            @element = @editor.element
             self = @
             flag = 0
             codeList = $("<div>#{@element.innerHTML}</div>")

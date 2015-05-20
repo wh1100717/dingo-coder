@@ -2,7 +2,8 @@ define (require, exports, module) ->
     "use strict"
 
     class Iframe
-        constructor: (@container, @editor) ->
+        constructor: (@editor) ->
+            @container = @editor.container
             @ifr = document.createElement("iframe")
             @ifr.id = "ifr_coder"
             @ifr.scrolling = "yes"

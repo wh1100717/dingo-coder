@@ -3,10 +3,13 @@ define (require, exports, module) ->
 
     Element = require("./element")
 
+    Service = require("./service/service")
+
     Index = {}
 
     Index.init = ->
-        Element.init()
+        service = new Service()
+        Element.init(service)
 
  
     module.exports = Index
