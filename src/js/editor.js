@@ -10,7 +10,7 @@ define(function(require, exports, module) {
       this.container = container;
       this.element = element;
       this.container = $(this.container);
-      this.ifr = new Iframe(this.container, this);
+      this.ifr = new Iframe(this.container, this, this.element);
       this.coder = new Coder(this.container, this, this.element);
       this.layout = new Layout(this.container, this, this.element);
     }

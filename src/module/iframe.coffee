@@ -2,13 +2,31 @@ define (require, exports, module) ->
     "use strict"
 
     class Iframe
-        constructor: (@container, @editor) ->
-            @ifr = document.createElement("iframe")
-            @ifr.id = "ifr_coder"
-            @ifr.scrolling = "yes"
-            @ifr.frameborder = 0
-            @ifr.setAttribute("class","renderer coder")
-            @container.find("#renderer-container").append(@ifr)
+        constructor: (@container, @editor, @element) ->
+            @judgeiframe()
+            if (@setiframe)
+                console.log "yes"
+                @ifr = document.createElement("iframe")
+                @ifr.id = "ifr_coder"
+                @ifr.scrolling = "yes"
+                @ifr.frameborder = 0
+                @ifr.setAttribute("class","renderer coder")
+                @container.find("#renderer-container").append(@ifr)
+            else
+                @ifr = null
+                console.log @ifr
+                console.log "noiframe"
+
+        judgeiframe: ->
+            self = @
+            @setiframe = false
+            @codeList = $("<div>#{@element.innerHTML}</div>")
+            @codeList.find("textarea").each ->
+                code_type = $(@).attr("code")
+                console.log code_type
+                if code_type is "html" then self.setiframe = true
+            return
+
         refresh: ->
             try
                 doc = @editor.html_editor.doc.getValue().trim()
@@ -23,7 +41,6 @@ define (require, exports, module) ->
                 @ifr.contentWindow.document.body.appendChild(script)
             return
         remove: ->
-            @container.find("iframe").remove()
             @container.find(".coderead").trigger "click"
             @container.find(".coderead").unbind()
             @container.find(".iframeread").removeClass("active").unbind()

@@ -9,7 +9,7 @@ define (require, exports, module) ->
 
         constructor: (@container, @element) ->
             @container = $(@container)
-            @ifr = new Iframe(@container, @)
+            @ifr = new Iframe(@container, @, @element)
             @coder = new Coder(@container, @, @element)
             @layout = new Layout(@container, @, @element)
 

@@ -35,7 +35,7 @@ define(function(require, exports, module) {
           this.container.find(".CodeMirror").hide();
           this.container.find("#mode-tabs #file-dropdown-toggle #file-dropdown").hide();
           this.outerheight = this.container.find("#code-editor").height();
-          if (this.editor.coder.typelist.length > 2 && this.editor.coder.ififrame === true) {
+          if (this.editor.coder.typelist.length > 2 && this.editor.ifr.ifr !== null) {
             this.outerheight = (this.outerheight + 35) / 2;
             this.container.find(".CodeMirror").eq(0).show().removeClass("expansionup").css("height", "" + this.outerheight);
             this.container.find(".CodeMirror").eq(1).show().removeClass("expansionup").css("height", "" + this.outerheight);
@@ -54,7 +54,7 @@ define(function(require, exports, module) {
           }
           break;
         case 4:
-          if (this.editor.coder.typelist.length > 2 && this.editor.coder.ififrame === true) {
+          if (this.editor.coder.typelist.length > 2 && this.editor.ifr.ifr !== null) {
             this.container.find("#renderer-container").children().eq(2).insertAfter(this.container.find("#code-editor .CodeMirror").eq(1));
             this.container.find("#renderer-container").children().eq(1).insertAfter(this.container.find("#code-editor .CodeMirror").eq(1));
             this.container.find(".renderer").css({
