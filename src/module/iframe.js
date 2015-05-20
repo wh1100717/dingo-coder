@@ -6,13 +6,37 @@ define(function(require, exports, module) {
     function Iframe(editor) {
       this.editor = editor;
       this.container = this.editor.container;
-      this.ifr = document.createElement("iframe");
-      this.ifr.id = "ifr_coder";
-      this.ifr.scrolling = "yes";
-      this.ifr.frameborder = 0;
-      this.ifr.setAttribute("class", "renderer coder");
-      this.container.find("#renderer-container").append(this.ifr);
+      this.element = this.editor.element;
+      this.judgeiframe();
+      if (this.setiframe) {
+        console.log("yes");
+        this.ifr = document.createElement("iframe");
+        this.ifr.id = "ifr_coder";
+        this.ifr.scrolling = "yes";
+        this.ifr.frameborder = 0;
+        this.ifr.setAttribute("class", "renderer coder");
+        this.container.find("#renderer-container").append(this.ifr);
+      } else {
+        this.ifr = null;
+        console.log(this.ifr);
+        console.log("noiframe");
+      }
     }
+
+    Iframe.prototype.judgeiframe = function() {
+      var self;
+      self = this;
+      this.setiframe = false;
+      this.codeList = $("<div>" + this.element.innerHTML + "</div>");
+      this.codeList.find("textarea").each(function() {
+        var code_type;
+        code_type = $(this).attr("code");
+        console.log(code_type);
+        if (code_type === "html") {
+          return self.setiframe = true;
+        }
+      });
+    };
 
     Iframe.prototype.refresh = function() {
       var doc, script, style;
@@ -33,7 +57,6 @@ define(function(require, exports, module) {
     };
 
     Iframe.prototype.remove = function() {
-      this.container.find("iframe").remove();
       this.container.find(".coderead").trigger("click");
       this.container.find(".coderead").unbind();
       return this.container.find(".iframeread").removeClass("active").unbind();

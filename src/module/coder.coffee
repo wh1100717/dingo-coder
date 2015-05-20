@@ -11,11 +11,9 @@ define (require, exports, module) ->
             @element = @editor.element
             self = @
             flag = 0
-            codeList = $("<div>#{@element.innerHTML}</div>")
             @event_bind()
-            @ififrame = false
             @typelist = []
-            codeList.find("textarea").each ->
+            @editor.ifr.codeList.find("textarea").each ->
                 flag++
                 code_type = $(@).attr("code")
                 self.typelist.push(code_type)
@@ -37,12 +35,11 @@ define (require, exports, module) ->
                     code_content = self.code_format(code_type, code_content)
                     self.element.setAttribute(code_type, code_content)
                     if code_type in ["js", "css", "html"]
-                        if code_type is "html" then self.ififrame = true
                         self.editor["#{code_type}_editor"].on "change", -> self.editor.ifr.refresh()
                 )
             querycheck = setInterval =>
                 return if flag isnt 0
-                @editor.ifr.remove() if @ififrame is false
+                @editor.ifr.remove() if @editor.ifr.ifr is null
                 @typelist = @typelist.reverse()
                 @fixlist i for i in @typelist
                 @container.find(".mode-tab").eq(0).trigger "click"

@@ -32,7 +32,7 @@ define (require, exports, module) ->
                     @container.find(".CodeMirror").hide()
                     @container.find("#mode-tabs #file-dropdown-toggle #file-dropdown").hide()
                     @outerheight = @container.find("#code-editor").height()
-                    if @editor.coder.typelist.length > 2 and @editor.coder.ififrame is true
+                    if @editor.coder.typelist.length > 2 and @editor.ifr.ifr isnt null
                         @outerheight = (@outerheight + 35) / 2
                         @container.find(".CodeMirror").eq(0).show().removeClass("expansionup").css("height","#{@outerheight}")
                         @container.find(".CodeMirror").eq(1).show().removeClass("expansionup").css("height","#{@outerheight}")
@@ -43,7 +43,7 @@ define (require, exports, module) ->
                         @element.layout++
                         @set_layout()
                 when 4
-                    if @editor.coder.typelist.length > 2 and @editor.coder.ififrame is true
+                    if @editor.coder.typelist.length > 2 and @editor.ifr.ifr isnt null
                         @container.find("#renderer-container").children().eq(2).insertAfter(@container.find("#code-editor .CodeMirror").eq(1))
                         @container.find("#renderer-container").children().eq(1).insertAfter(@container.find("#code-editor .CodeMirror").eq(1))
                         @container.find(".renderer").css({"height":"100%"})

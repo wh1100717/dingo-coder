@@ -7,17 +7,15 @@ define(function(require, exports, module) {
   mode = require("./mode");
   Coder = (function() {
     function Coder(editor) {
-      var codeList, flag, querycheck, self;
+      var flag, querycheck, self;
       this.editor = editor;
       this.container = this.editor.container;
       this.element = this.editor.element;
       self = this;
       flag = 0;
-      codeList = $("<div>" + this.element.innerHTML + "</div>");
       this.event_bind();
-      this.ififrame = false;
       this.typelist = [];
-      codeList.find("textarea").each(function() {
+      this.editor.ifr.codeList.find("textarea").each(function() {
         var code_type;
         flag++;
         code_type = $(this).attr("code");
@@ -42,9 +40,6 @@ define(function(require, exports, module) {
             code_content = self.code_format(code_type, code_content);
             self.element.setAttribute(code_type, code_content);
             if (code_type === "js" || code_type === "css" || code_type === "html") {
-              if (code_type === "html") {
-                self.ififrame = true;
-              }
               return self.editor[code_type + "_editor"].on("change", function() {
                 return self.editor.ifr.refresh();
               });
@@ -58,7 +53,7 @@ define(function(require, exports, module) {
           if (flag !== 0) {
             return;
           }
-          if (_this.ififrame === false) {
+          if (_this.editor.ifr.ifr === null) {
             _this.editor.ifr.remove();
           }
           _this.typelist = _this.typelist.reverse();
