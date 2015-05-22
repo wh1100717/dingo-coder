@@ -3,7 +3,7 @@ define (require, exports, module) ->
 
     CodeMirror = require("codemirror/lib/codemirror")
     mode = require("./mode")
-    beautify = require("../lib/beautify/index")
+    beautify = require("../lib/beautify")
 
     class Coder
         constructor: (@editor) ->

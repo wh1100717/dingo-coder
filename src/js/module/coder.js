@@ -4,7 +4,7 @@ define(function(require, exports, module) {
   var CodeMirror, Coder, beautify, mode;
   CodeMirror = require("codemirror/lib/codemirror");
   mode = require("./mode");
-  beautify = require("../lib/beautify/index");
+  beautify = require("../lib/beautify");
   Coder = (function() {
     function Coder(editor) {
       var flag, querycheck, self;

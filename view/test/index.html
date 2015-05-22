@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>Dingo</title>
+    <link rel="icon" href="http://localhost:9008/img/favicon.ico" type="image/x-icon">
+    <script src="http://localhost:9008/vendor/webcomponentsjs/webcomponents.min.js"></script>
+    <link rel="import" href="http://localhost:9008/dingo-coder.html">
+    <style>
+    body {
+        direction: ltr;
+        background-color: white;
+        color: white;
+        font-family: 'Arial';
+        font-size: 13px;
+        padding: 0px !important;
+        margin: 0px !important;
+        line-height: 1.5;
+        font-style: normal;
+        font-weight: normal;
+        height: 100%;
+    }
+    #wrap {
+        min-height: 100%;
+        height: 600px;
+        width:950px;
+        margin: 0 auto -60px;
+        max-width: 1100px;
+    }    
+    </style>
+</head>
+<body>
+    <div style="height:20px;width:100%"></div>
+    <div id="wrap">
+        <dingo-coder
+            title="Dingo Coder"
+            icon="http://localhost:9008/img/logo.png"
+            layout="1">
+            <textarea code="html" style="display: none">
+                <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+                <div class="example">
+                    <button type="button" class="btn btn-default">Default</button>
+                    <button type="button" class="btn btn-primary">Primary</button>
+                    <button type="button" class="btn btn-success">Success</button>
+                    <button type="button" class="btn btn-info">Info</button>
+                    <button type="button" class="btn btn-warning">Warning</button>
+                    <button type="button" class="btn btn-danger">Danger</button>
+                    <button type="button" class="btn btn-link">Link</button>
+                </div>
+            </textarea>
+            <textarea code="css" style="display:none">
+                .example {
+                    margin:auto;
+                    margin-top:10px;
+                    width:95%;
+                    background-color: #fff;
+                    border-color: #ddd;
+                    border-width: 1px;
+                    border-radius: 4px;
+                    -webkit-box-shadow: none;
+                    box-shadow: none;
+                    position: relative;
+                    padding: 45px 15px 45px 15px;
+                    border-style: solid;
+                }
+                button{
+                margin-top:10px;}
+
+            </textarea>
+            <textarea code="js" style="display:none">
+                console.log(123);
+            </textarea>
+            <textarea code="velocity" style="display:none">
+                The RHS can also be a simple arithmetic expression, such as:
+                Addition: #set( $value = $foo + 1 )
+                   Subtraction: #set( $value = $bar - 1 )
+                   Multiplication: #set( $value = $foo * $bar )
+                   Division: #set( $value = $foo / $bar )
+                   Remainder: #set( $value = $foo % $bar )
+            </textarea>
+        </dingo-coder>
+    </div>
+
+</body>
+</html>
