@@ -1051,3 +1051,23 @@ span.CodeMirror-selectedtext {
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 10;
 }
+.type {
+  margin-top: 50%;
+  width: :100%;
+  text-align: center;
+}
+.type img {
+  margin: 0px 30px;
+  cursor: pointer;
+}
+.col-sm-4 {
+  display: inline-block;
+  width: 33%;
+}
+.signinput {
+  text-align: center;
+  margin: 100% 20px 0px 20px;
+}
+.signinput .input-group {
+  margin-bottom: 30px;
+}

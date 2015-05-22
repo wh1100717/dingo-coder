@@ -74,5 +74,14 @@ define (require, exports, module) ->
                 @element.layout++
                 self.editor.layout.set_layout()
 
+            @container.find(".signin").on "click", ->
+                self.container.find(".type").toggleClass("typedown")
+                if self.container.find(".type").hasClass("typedown")
+                    self.container.find(".type").animate({"margin-top":"10%"},500)
+                    self.container.find(".signinput").animate({"margin-top": "40%"},500)
+                else
+                    self.container.find(".type").animate({"margin-top":"50%"},500)
+                    self.container.find(".signinput").animate({"margin-top":"100%"},500)
+
 
     module.exports = Coder

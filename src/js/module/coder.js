@@ -105,12 +105,30 @@ define(function(require, exports, module) {
         toshow = $(this).attr("codetype");
         return self.container.find("#" + toshow).next().show();
       });
-      return this.container.find(".mode").on("click", (function(_this) {
+      this.container.find(".mode").on("click", (function(_this) {
         return function() {
           _this.element.layout++;
           return self.editor.layout.set_layout();
         };
       })(this));
+      return this.container.find(".signin").on("click", function() {
+        self.container.find(".type").toggleClass("typedown");
+        if (self.container.find(".type").hasClass("typedown")) {
+          self.container.find(".type").animate({
+            "margin-top": "10%"
+          }, 500);
+          return self.container.find(".signinput").animate({
+            "margin-top": "40%"
+          }, 500);
+        } else {
+          self.container.find(".type").animate({
+            "margin-top": "50%"
+          }, 500);
+          return self.container.find(".signinput").animate({
+            "margin-top": "100%"
+          }, 500);
+        }
+      });
     };
 
     return Coder;

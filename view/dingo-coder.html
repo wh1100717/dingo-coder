@@ -3,6 +3,7 @@
     <template>
         <link rel="stylesheet" type="text/css" href="./css/dingo-coder.css">
         <link rel="stylesheet" type="text/css" href="./vendor/codemirror/theme/monokai.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <div id="editor">
             <div id="header">
                 <a class="item"><img src="{{icon}}" id="logo"></a>
@@ -23,7 +24,30 @@
                 <div id="render-panel" class="panel active renderpanel">
                     <div id="renderer-container"></div>
                 </div>
-                <div id="setting-panel"></div>    
+                <div id="setting-panel">
+                    <div class="type">
+                    <div class="row">
+                    <div class="col-sm-4">
+                        <img src="./img/key.svg" class="signin setbutton">
+                    </div><div class="col-sm-4">
+                        <img src="./img/news.svg" class="signout setbutton">
+                    </div><div class="col-sm-4">
+                        <img src="./img/eye.svg" class="nameless setbutton">
+                    </div>                        
+                    </div>
+                    </div>
+                    <div class="signinput">
+                        <div class="input-group">
+                          <span class="input-group-addon" id="email">邮箱</span>
+                          <input type="text" class="form-control" placeholder="Email" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group">
+                          <span class="input-group-addon" id="password">密码</span>
+                          <input type="password" class="form-control" placeholder="password" aria-describedby="basic-addon1">
+                        </div>
+                        <button type="button" class="btn bt-default" id="login">登陆</button>
+                    </div>
+                </div>    
             </div>
         </div>
     </template>

@@ -7,7 +7,6 @@ define (require, exports, module) ->
             @element = @editor.element
             @judgeiframe()
             if (@setiframe)
-                console.log "yes"
                 @ifr = document.createElement("iframe")
                 @ifr.id = "ifr_coder"
                 @ifr.scrolling = "yes"
@@ -16,8 +15,6 @@ define (require, exports, module) ->
                 @container.find("#renderer-container").append(@ifr)
             else
                 @ifr = null
-                console.log @ifr
-                console.log "noiframe"
 
         judgeiframe: ->
             self = @
@@ -25,7 +22,6 @@ define (require, exports, module) ->
             @codeList = $("<div>#{@element.innerHTML}</div>")
             @codeList.find("textarea").each ->
                 code_type = $(@).attr("code")
-                console.log code_type
                 if code_type is "html" then self.setiframe = true
             return
         refresh: ->

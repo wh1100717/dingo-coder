@@ -9,7 +9,6 @@ define(function(require, exports, module) {
       this.element = this.editor.element;
       this.judgeiframe();
       if (this.setiframe) {
-        console.log("yes");
         this.ifr = document.createElement("iframe");
         this.ifr.id = "ifr_coder";
         this.ifr.scrolling = "yes";
@@ -18,8 +17,6 @@ define(function(require, exports, module) {
         this.container.find("#renderer-container").append(this.ifr);
       } else {
         this.ifr = null;
-        console.log(this.ifr);
-        console.log("noiframe");
       }
     }
 
@@ -31,7 +28,6 @@ define(function(require, exports, module) {
       this.codeList.find("textarea").each(function() {
         var code_type;
         code_type = $(this).attr("code");
-        console.log(code_type);
         if (code_type === "html") {
           return self.setiframe = true;
         }
