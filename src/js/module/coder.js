@@ -111,7 +111,7 @@ define(function(require, exports, module) {
           return self.editor.layout.set_layout();
         };
       })(this));
-      return this.container.find(".signin").on("click", function() {
+      this.container.find(".login").on("click", function() {
         self.container.find(".type").toggleClass("typedown");
         if (self.container.find(".type").hasClass("typedown")) {
           self.container.find(".type").animate({
@@ -129,6 +129,15 @@ define(function(require, exports, module) {
           }, 500);
         }
       });
+      this.container.find("#login").on("click", function() {
+        var email, password;
+        email = self.container.find("input[type='mail']").val();
+        password = self.container.find("input[type='password']").val();
+        return self.editor.service.authService.login(email, password, function(error, data) {
+          return console.log(error);
+        });
+      });
+      return this.container.find(".signup").on("click", function() {});
     };
 
     return Coder;

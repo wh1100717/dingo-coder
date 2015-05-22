@@ -74,7 +74,7 @@ define (require, exports, module) ->
                 @element.layout++
                 self.editor.layout.set_layout()
 
-            @container.find(".signin").on "click", ->
+            @container.find(".login").on "click", ->
                 self.container.find(".type").toggleClass("typedown")
                 if self.container.find(".type").hasClass("typedown")
                     self.container.find(".type").animate({"margin-top":"10%"},500)
@@ -82,6 +82,14 @@ define (require, exports, module) ->
                 else
                     self.container.find(".type").animate({"margin-top":"50%"},500)
                     self.container.find(".signinput").animate({"margin-top":"100%"},500)
+
+            @container.find("#login").on "click", ->
+                email = self.container.find("input[type='mail']").val()
+                password = self.container.find("input[type='password']").val()
+                self.editor.service.authService.login(email, password, (error, data) -> console.log error)
+
+            @container.find(".signup").on "click", ->
+
 
 
     module.exports = Coder
