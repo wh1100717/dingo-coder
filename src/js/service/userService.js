@@ -15,9 +15,10 @@ define(function(require, exports, module) {
      *  destroy:        伤处用户全部信息
      */
     function UserService(service) {
+      var ref;
       this.service = service;
       this.user = this.service.authService.getUser();
-      this.userRef = new Firebase("https://dingo-coder.firebaseio.com/users/" + this.user.uid);
+      this.userRef = new Firebase("https://dingo-coder.firebaseio.com/users/" + ((ref = this.user) != null ? ref.uid : void 0));
     }
 
     UserService.prototype.getUser = function() {

@@ -13,10 +13,9 @@ define (require, exports, module) ->
          *  remove:         删除用户的某项信息
          *  destroy:        伤处用户全部信息
         ###
-
         constructor: (@service) ->
             @user = @service.authService.getUser()
-            @userRef = new Firebase("https://dingo-coder.firebaseio.com/users/#{@user.uid}")
+            @userRef = new Firebase("https://dingo-coder.firebaseio.com/users/#{@user?.uid}")
 
         getUser: -> @user
 
