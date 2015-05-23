@@ -1,42 +1,7 @@
 <link rel="import" href="./vendor/polymer/polymer.html">
 <polymer-element name="dingo-coder" attributes="html css js java c velocity icon title layout">
     <template>
-        <link rel="stylesheet" type="text/css" href="./css/dingo-coder.css">
-        <link rel="stylesheet" type="text/css" href="./vendor/codemirror/theme/monokai.css">
-        <div id="editor">
-            <div id="header">
-                <a class="item"><img src="{{icon}}" id="logo"></a>
-                <a class="item" id="title">{{title}}</a>
-                <div id="header-panel-toggles">
-                    <img src="./img/header_text.svg"  class="mode active">
-                    <img src="./img/header_code.svg" class="iframeread active">
-                    <img src="./img/header_render.svg" class="coderead active">
-                    <img src="./img/settings.svg" class="setting">
-                </div>
-                <div id="toggle-full-screen"></div>
-            </div>
-            <div id="content">
-                <div id="code-panel" class="panel active codepanel">
-                    <div id="mode-tabs">
-
-                    </div>
-                    <div id="code-editor">
-
-                  </div>
-                </div>
-                <div id="render-panel" class="panel active renderpanel">
-                    <div id="renderer-container"></div>
-                </div> 
-                <div id="setting-panel"></div>    
-            </div>
-        </div>
+        <div id="container" style="width: 100%; height: 100%;"></div>
     </template>
-    <script src="./vendor/requirejs/require.js"></script>
-    <script src="./js/seed.js"></script>
-    <script>
-    require(['./js/index'], function(Index){
-        Index.init();
-    })
-    </script>
-
+    <script src="./js/index.js"></script>
 </polymer-element>
