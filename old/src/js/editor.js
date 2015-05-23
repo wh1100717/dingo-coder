@@ -10,8 +10,6 @@ define(function(require, exports, module) {
       this.container = container;
       this.element = element;
       this.service = service;
-      $("#logo").attr("src", this.element.icon);
-      $("#title").html(this.element.name);
       this.container = $(this.container);
       this.ifr = new Iframe(this);
       this.coder = new Coder(this);

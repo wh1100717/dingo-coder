@@ -1,10 +1,6 @@
 define (require, exports, module) ->
     "use strict"
 
-    postParent = (mes, origin) ->
-        parent.postMessage(JSON.stringify(mes), "*")
-
-
     class Layout
         constructor: (@editor) ->
             @container = @editor.container
@@ -71,12 +67,17 @@ define (require, exports, module) ->
             return
 
         enter_fullscreen: ->
-            console.log @element.origin
-            postParent("enter_fullscreen", @element.origin)
+            @container[0].requestFullscreen?()
+            @container[0].msRequestFullscreen?()
+            @container[0].mozRequestFullScreen?()
+            @container[0].webkitRequestFullscreen?()
             return
 
         exit_fullscreen: ->
-            postParent("exit_fullscreen", @element.origin)
+            document.exitFullscreen?()
+            document.msExitFullscreen?()
+            document.mozCancelFullScreen?()
+            document.webkitExitFullscreen?()
             return
 
         event_bind: ->

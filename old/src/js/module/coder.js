@@ -11,15 +11,14 @@ define(function(require, exports, module) {
       this.editor = editor;
       this.container = this.editor.container;
       this.element = this.editor.element;
+      self = this;
+      flag = 0;
       this.event_bind();
       this.typelist = [];
-      flag = 0;
-      self = this;
-      $.each(this.element.codes, function() {
-        var code_type, code_value;
+      this.editor.ifr.codeList.find("textarea").each(function() {
+        var code_type;
         flag++;
-        code_type = this.type;
-        code_value = this.value;
+        code_type = $(this).attr("code");
         self.typelist.push(code_type);
         return require(["codemirror/mode/" + mode[code_type].mode + "/" + mode[code_type].mode], (function(_this) {
           return function() {
@@ -37,14 +36,14 @@ define(function(require, exports, module) {
               mode: "" + mode[code_type].type
             });
             self.container.find("#code" + code_type).next().prepend("<div class='remind'>" + code_type + "</div>");
-            code_content = _this.value;
+            code_content = $(_this).val();
             code_content = self.code_format(code_type, code_content);
+            self.element.setAttribute(code_type, code_content);
             if (code_type === "js" || code_type === "css" || code_type === "html") {
-              self.editor[code_type + "_editor"].on("change", function() {
+              return self.editor[code_type + "_editor"].on("change", function() {
                 return self.editor.ifr.refresh();
               });
             }
-            return self.editor[code_type + "_editor"].doc.setValue(code_content);
           };
         })(this));
       });

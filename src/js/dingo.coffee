@@ -9,20 +9,17 @@ define (require, exports, module) ->
     #For Test
     window.service = Service
 
+    bind = (el, eve, fn, priority) ->
+        _isIE = if window.addEventListener? then false else true
+        el[if _isIE then "attachEvent" else "addEventListener"]("#{if _isIE then "on" else ""}#{eve}", fn, priority or false)
+
     Dingo = {}
 
     Dingo.init = ->
-        Polymer "dingo-coder", {
-            icon:"/img/logo.png"
-            title: "Dingo Coder"
-            layout: 1
-            ready: -> @editor = new Editor(@$.editor, @, Service)
-            attributeChanged: (attrName, oldVal, newVal) ->
-                @editor.set_editor(attrName, newVal) if Mode[attrName]?
-                @editor.refresh() if attrName in ["js", "css", "html"]
-        }
-        return
+        bind window, "message", (e) ->
+            Dingo.element = JSON.parse e.data
+            console.log "From postMessage", Dingo.element
+            new Editor($("#editor"), Dingo.element)
 
 
- 
     module.exports = Dingo

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>Dingo</title>
+    <link rel="stylesheet" type="text/css" href="./css/dingo-coder.css">
+    <link rel="stylesheet" type="text/css" href="./vendor/codemirror/theme/monokai.css">
+</head>
+<body>
+    <div id="editor">
+        <div id="header">
+            <a class="item"><img src="" id="logo"></a>
+            <a class="item" id="title"></a>
+            <div id="header-panel-toggles">
+                <img src="./img/header_text.svg"  class="mode active">
+                <img src="./img/header_code.svg" class="iframeread active">
+                <img src="./img/header_render.svg" class="coderead active">
+                <img src="./img/settings.svg" class="setting">
+            </div>
+            <div id="toggle-full-screen"></div>
+        </div>
+        <div id="content">
+            <div id="code-panel" class="panel active codepanel">
+                <div id="mode-tabs"></div>
+                <div id="code-editor"></div>
+            </div>
+            <div id="render-panel" class="panel active renderpanel">
+                <div id="renderer-container"></div>
+            </div>
+            <div id="setting-panel">
+                <div class="type">
+                <div class="row">
+                <div class="col-sm-4">
+                    <img src="./img/key.svg" class="login setbutton">
+                </div><div class="col-sm-4">
+                    <img src="./img/news.svg" class="signup setbutton">
+                </div><div class="col-sm-4">
+                    <img src="./img/eye.svg" class="nameless setbutton">
+                </div>
+                </div>
+                </div>
+                <div class="signinput">
+                    <div class="input-group">
+                      <span class="input-group-addon" >邮箱</span>
+                      <input type="mail" class="form-control" placeholder="Email" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon" >密码</span>
+                      <input type="password" class="form-control" placeholder="password" aria-describedby="basic-addon1">
+                    </div>
+                    <button type="button" class="btn bt-default" id="login">登陆</button>
+                </div>
+                 <div class="signupput">
+                    <div class="input-group">
+                      <span class="input-group-addon" >邮箱</span>
+                      <input type="mailsigup" class="form-control" placeholder="Email" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">密码</span>
+                      <input type="passwordsigup" class="form-control" placeholder="password" aria-describedby="basic-addon1">
+                    </div>
+                    <button type="button" class="btn bt-default" id="signup">登陆</button>
+                </div>
+            </div>    
+        </div>
+    </div>
+    <script src="./vendor/jquery/dist/jquery.min.js"></script>
+    <script src="./vendor/requirejs/require.js"></script>
+    <script src="./js/seed.js"></script>
+    <script>
+    require(['./js/dingo'], function(Dingo){
+        Dingo.init();
+    })
+    </script>
+</body>
+</html>

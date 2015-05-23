@@ -24,6 +24,7 @@ define(function(require, exports, module) {
       var code, i, len, ref, self;
       self = this;
       this.setiframe = false;
+      console.log(this.element);
       ref = this.element.codes;
       for (i = 0, len = ref.length; i < len; i++) {
         code = ref[i];
@@ -36,7 +37,6 @@ define(function(require, exports, module) {
     Iframe.prototype.refresh = function() {
       var doc, script, style;
       try {
-        console.log(this.editor);
         doc = this.editor.html_editor.doc.getValue().trim();
         if (doc === "") {
           doc = "<div></div>";

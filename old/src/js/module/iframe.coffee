@@ -19,12 +19,11 @@ define (require, exports, module) ->
         judgeiframe: ->
             self = @
             @setiframe = false
+            console.log @element
             @setiframe = true for code in @element.codes when code.type is "html"
             return
-
         refresh: ->
             try
-                console.log @editor
                 doc = @editor.html_editor.doc.getValue().trim()
                 doc = "<div></div>" if doc is ""
                 @ifr.contentWindow.document.close()
@@ -36,7 +35,6 @@ define (require, exports, module) ->
                 @ifr.contentWindow.document.head.appendChild(style)
                 @ifr.contentWindow.document.body.appendChild(script)
             return
-
         remove: ->
             @container.find(".coderead").trigger "click"
             @container.find(".coderead").unbind()

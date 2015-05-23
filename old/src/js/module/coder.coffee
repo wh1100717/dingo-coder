@@ -9,17 +9,15 @@ define (require, exports, module) ->
         constructor: (@editor) ->
             @container = @editor.container
             @element = @editor.element
+            self = @
+            flag = 0
             @event_bind()
             @typelist = []
-            flag = 0
-            self = @
-
-            $.each @element.codes, ->
+            @editor.ifr.codeList.find("textarea").each ->
                 flag++
-                code_type = @type
-                code_value = @value
+                code_type = $(@).attr("code")
                 self.typelist.push(code_type)
-                require ["codemirror/mode/#{mode[code_type].mode}/#{mode[code_type].mode}"], =>
+                require(["codemirror/mode/#{mode[code_type].mode}/#{mode[code_type].mode}"], =>
                     flag--
                     menu = $("<div class='mode-tab' codetype='code#{code_type}'>#{code_type}<div class='arrow-up '></div></div>")
                     self.container.find("#mode-tabs").append(menu)
@@ -33,12 +31,12 @@ define (require, exports, module) ->
                         mode: "#{mode[code_type].type}"
                     }
                     self.container.find("#code#{code_type}").next().prepend("<div class='remind'>#{code_type}</div>")
-                    code_content = @value
+                    code_content = $(@).val()
                     code_content = self.code_format(code_type, code_content)
+                    self.element.setAttribute(code_type, code_content)
                     if code_type in ["js", "css", "html"]
                         self.editor["#{code_type}_editor"].on "change", -> self.editor.ifr.refresh()
-                    self.editor["#{code_type}_editor"].doc.setValue(code_content)
-             
+                )
             querycheck = setInterval =>
                 return if flag isnt 0
                 @editor.ifr.remove() if @editor.ifr.ifr is null
@@ -48,7 +46,6 @@ define (require, exports, module) ->
                 clearInterval(querycheck)
             , 100
             return
-
         fixlist: (i) ->
             @container.find("div[codetype=code#{i}]").prependTo(@container.find("#mode-tabs"))
             @container.find("#code#{i}").next().prependTo(@container.find("#code-editor"))

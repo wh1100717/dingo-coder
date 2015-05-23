@@ -8,8 +8,6 @@ define (require, exports, module) ->
     class Editor
 
         constructor: (@container, @element, @service) ->
-            $("#logo").attr("src", @element.icon)
-            $("#title").html(@element.name)
             @container = $(@container)
             @ifr = new Iframe(@)
             @coder = new Coder(@)
