@@ -625,278 +625,114 @@ span.CodeMirror-selectedtext { background: none; }
 //   min-height:400px;
 // }
 
-.expansion{
-  animation:expansionright 0.5s;
- -moz-animation: expansionright 0.5s; 
--webkit-animation: expansionright 0.5s;  
--o-animation: expansionright 0.5s; 
-animation-fill-mode: forwards;
--webkit-animation-fill-mode: forwards;
-}
-.narrow{
-   animation: narrowright,0.5s;
-   -moz-animation: narrowright 0.5s; 
-  -webkit-animation: narrowright 0.5s;  
-  -o-animation: narrowright 0.5s; 
+.animation(@args){
+  animation:@args;
+  -moz-animation: @args; 
+  -webkit-animation: @args;  
+  -o-animation: @args; 
   animation-fill-mode: forwards;
   -webkit-animation-fill-mode: forwards;
+
+}
+.expansion{
+  .keyframes(expansionright);
+  .-frames(){
+    from {width: 50%;}
+    to {width: 100%;}
+  }
+  .animation(expansionright 0.5s)
+}
+.narrow{
+  .keyframes(narrowright);
+  .-frames(){
+    from {width: 50%;}
+    to {width: 0%;}
+  }
+  .animation(narrowright 0.5s)
 }
 .expansionleft{
-  animation:expansionleft 0.5s;
- -moz-animation: expansionleft 0.5s; 
--webkit-animation: expansionleft 0.5s;  
--o-animation: expansionleft 0.5s; 
-animation-fill-mode: forwards;
--webkit-animation-fill-mode: forwards;
+  .keyframes(expansionleft);
+  .-frames(){
+    from {width: 0%;}
+    to {width: 50%;}
+  }
+  .animation(expansionleft 0.5s)
 }
 .narrowleft{
-animation:narrowleft 0.5s;
- -moz-animation: narrowleft 0.5s; 
--webkit-animation: narrowleft 0.5s;  
--o-animation: narrowleft 0.5s; 
-animation-fill-mode: forwards;
--webkit-animation-fill-mode: forwards;
-}
-// .animation(@name,@time){
-//   animation: @name @time;
-//   -moz-animation: @name @time; 
-//   -webkit-animation: @name @time;  
-//   -o-animation: @name @time;
-// }
-@keyframes expansionright
-{
-from {width: 50%;}
-to {width: 100%;}
+  .keyframes(narrowleft);
+  .-frames(){
+    from {width: 100%;}
+    to {width: 50%;}
+  }
+  .animation(narrowleft 0.5s)
 }
 
-@-moz-keyframes expansionright 
-{
-from {width: 50%;}
-to {width: 100%;}
+.keyframes(@name){
+  @-webkit-keyframes @name{
+    .-frames()
+  }
+  @-moz-keyframes @name {
+    .-frames()
+  }
+  @-o-keyframes @name {
+    .-frames()
+  }
+  @-ms-keyframes @name {
+    .-frames()
+  }
+  @keyframes @name {
+    .-frames()
+  }
 }
 
-@-webkit-keyframes expansionright 
-{
-from {width: 50%;}
-to {width: 100%;}
-}
-
-@-o-keyframes expansionright 
-{
-from {width: 50%;}
-to {width: 100%;}
-}
-@keyframes narrowright
-{
-from {width: 50%;}
-to {width: 0%;}
-}
-
-@-moz-keyframes narrowright 
-{
-from {width: 50%;}
-to {width: 0%;}
-}
-
-@-webkit-keyframes narrowright 
-{
-from {width: 50%;}
-to {width: 0%;}
-}
-
-@-o-keyframes narrowright 
-{
-from {width: 50%;}
-to {width: 0%;}
-}
-@keyframes expansionleft
-{
-from {width: 0%;}
-to {width: 50%;}
-}
-
-@-moz-keyframes expansionleft 
-{
-from {width: 0%;}
-to {width: 50%;}
-}
-
-@-webkit-keyframes expansionleft 
-{
-from {width: 0%;}
-to {width: 50%;}
-}
-
-@-o-keyframes expansionleft 
-{
-from {width: 0%;}
-to {width: 50%;}
-}
-@keyframes narrowleft
-{
-from {width: 100%;}
-to {width: 50%;}
-}
-
-@-moz-keyframes narrowleft 
-{
-from {width: 100%;}
-to {width: 50%;}
-}
-
-@-webkit-keyframes narrowleft 
-{
-from {width: 100%;}
-to {width: 50%;}
-}
-
-@-o-keyframes narrowleft 
-{
-from {width: 100%;}
-to {width: 50%;}
-}
 #editor{
   height: 100%;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   box-shadow: 3px 2px 5px 7px rgba(0,0,0,0.3);
 }
-#header{
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
+
 .expansionup{
-  animation:expansionup 0.5s;
- -moz-animation: expansionup 0.5s; 
--webkit-animation: expansionup 0.5s;  
--o-animation: expansionup 0.5s; 
-animation-fill-mode: forwards;
--webkit-animation-fill-mode: forwards;
-}
-@keyframes expansionup
-{
-from {height: 100%;}
-to {height: ((100%-30px+35px+4px)/3);}
+  .keyframes(expansionup);
+  .-frames(){
+   from {height: 100%;}
+   to {height: ((100%-30px+35px+4px)/3);}
+  }
+  .animation(expansionup 0.5s)
 }
 
-@-moz-keyframes expansionup 
-{
-from {height: 100%;}
-to {height: ((100%-30px+35px+4px)/3)}
-}
-
-@-webkit-keyframes expansionup 
-{
-from {height: 100%;}
-to {height: ((100%-30px+35px+4px)/3);}
-}
-
-@-o-keyframes expansionup 
-{
-from {height: 100%;}
-to {height: ((100%-30px+35px+4px)/3);}
-}
 .tabup{
-  animation:tabup 1s;
- -moz-animation: tabup 1s; 
--webkit-animation: tabup 1s;  
--o-animation: tabup 1s; 
-animation-fill-mode: forwards;
--webkit-animation-fill-mode: forwards;
-}
-@keyframes tabup
-{
-from {height: 35px;}
-to {height: 0px;}
+  .keyframes(tabup);
+  .-frames(){
+   from {height: 35px;}
+   to {height: 0px;}
+  }
+  .animation(tabup 1s)
 }
 
-@-moz-keyframes tabup 
-{
-from {height: 35px;}
-to {height: 0px;}
-}
-
-@-webkit-keyframes tabup 
-{
-from {height: 35px;}
-to {height: 0px;}
-}
-
-@-o-keyframes tabup 
-{
-from {height: 35px;}
-to {height: 0px;}
-}
 .tabdown{
-  animation:tabdown 1s;
- -moz-animation: tabdown 1s; 
--webkit-animation: tabdown 1s;  
--o-animation: tabdown 1s; 
-animation-fill-mode: forwards;
--webkit-animation-fill-mode: forwards;
-}
-@keyframes tabdown
-{
-from {height: 0px;}
-to {height: 35px;}
+  .keyframes(tabdown);
+  .-frames(){
+   from {height: 0px;}
+   to {height: 35px;}
+  }
+  .animation(tabdown 1s)
 }
 
-@-moz-keyframes tabdown 
-{
-from {height: 0px;}
-to {height: 35px;}
-}
-
-@-webkit-keyframes tabdown 
-{
-from {height: 0px;}
-to {height: 35px;}
-}
-
-@-o-keyframes tabdown 
-{
-from {height: 0px;}
-to {height: 35px;}
-}
 .expansiondown{
-  animation:expansiondown 0.5s;
- -moz-animation: expansiondown 0.5s; 
--webkit-animation: expansiondown 0.5s;  
--o-animation: expansiondown 0.5s; 
-animation-fill-mode: forwards;
--webkit-animation-fill-mode: forwards;
-}
-@keyframes expansiondown
-{
-from {height: ((100%-30px+35px+4px)/3);}
-to {height: 100%;}
-}
-
-@-moz-keyframes expansiondown 
-{
-from {height: ((100%-30px+35px+4px)/3);}
-to {height: 100%;}
-}
-
-@-webkit-keyframes expansiondown 
-{
-from {height: ((100%-30px+35px+4px)/3);}
-to {height: 100%;}
-}
-
-@-o-keyframes expansiondown 
-{
-from {height: ((100%-30px+35px+4px)/3);}
-to {height: 100%;}
+  .keyframes(expansiondown);
+  .-frames(){
+   from {height: ((100%-30px+35px+4px)/3);}
+   to {height: 100%;}
+  }
+  .animation(expansiondown 0.5s)
 }
 .remind{
   background-color: rgba(0,0,0,0.3);
   text-align: right;
   padding: 5px;
 }
-.remind p{
-  // float: right;
-}
+
 #code-panel{
   overflow-y: scroll;
 }

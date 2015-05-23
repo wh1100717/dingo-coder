@@ -712,31 +712,7 @@ span.CodeMirror-selectedtext {
   animation-fill-mode: forwards;
   -webkit-animation-fill-mode: forwards;
 }
-.narrow {
-  animation: narrowright,0.5s;
-  -moz-animation: narrowright 0.5s;
-  -webkit-animation: narrowright 0.5s;
-  -o-animation: narrowright 0.5s;
-  animation-fill-mode: forwards;
-  -webkit-animation-fill-mode: forwards;
-}
-.expansionleft {
-  animation: expansionleft 0.5s;
-  -moz-animation: expansionleft 0.5s;
-  -webkit-animation: expansionleft 0.5s;
-  -o-animation: expansionleft 0.5s;
-  animation-fill-mode: forwards;
-  -webkit-animation-fill-mode: forwards;
-}
-.narrowleft {
-  animation: narrowleft 0.5s;
-  -moz-animation: narrowleft 0.5s;
-  -webkit-animation: narrowleft 0.5s;
-  -o-animation: narrowleft 0.5s;
-  animation-fill-mode: forwards;
-  -webkit-animation-fill-mode: forwards;
-}
-@keyframes expansionright {
+@-webkit-keyframes expansionright {
   from {
     width: 50%;
   }
@@ -752,14 +728,6 @@ span.CodeMirror-selectedtext {
     width: 100%;
   }
 }
-@-webkit-keyframes expansionright {
-  from {
-    width: 50%;
-  }
-  to {
-    width: 100%;
-  }
-}
 @-o-keyframes expansionright {
   from {
     width: 50%;
@@ -768,7 +736,31 @@ span.CodeMirror-selectedtext {
     width: 100%;
   }
 }
-@keyframes narrowright {
+@-ms-keyframes expansionright {
+  from {
+    width: 50%;
+  }
+  to {
+    width: 100%;
+  }
+}
+@keyframes expansionright {
+  from {
+    width: 50%;
+  }
+  to {
+    width: 100%;
+  }
+}
+.narrow {
+  animation: narrowright 0.5s;
+  -moz-animation: narrowright 0.5s;
+  -webkit-animation: narrowright 0.5s;
+  -o-animation: narrowright 0.5s;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+}
+@-webkit-keyframes narrowright {
   from {
     width: 50%;
   }
@@ -784,14 +776,6 @@ span.CodeMirror-selectedtext {
     width: 0%;
   }
 }
-@-webkit-keyframes narrowright {
-  from {
-    width: 50%;
-  }
-  to {
-    width: 0%;
-  }
-}
 @-o-keyframes narrowright {
   from {
     width: 50%;
@@ -800,7 +784,31 @@ span.CodeMirror-selectedtext {
     width: 0%;
   }
 }
-@keyframes expansionleft {
+@-ms-keyframes narrowright {
+  from {
+    width: 50%;
+  }
+  to {
+    width: 0%;
+  }
+}
+@keyframes narrowright {
+  from {
+    width: 50%;
+  }
+  to {
+    width: 0%;
+  }
+}
+.expansionleft {
+  animation: expansionleft 0.5s;
+  -moz-animation: expansionleft 0.5s;
+  -webkit-animation: expansionleft 0.5s;
+  -o-animation: expansionleft 0.5s;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+}
+@-webkit-keyframes expansionleft {
   from {
     width: 0%;
   }
@@ -816,14 +824,6 @@ span.CodeMirror-selectedtext {
     width: 50%;
   }
 }
-@-webkit-keyframes expansionleft {
-  from {
-    width: 0%;
-  }
-  to {
-    width: 50%;
-  }
-}
 @-o-keyframes expansionleft {
   from {
     width: 0%;
@@ -832,7 +832,31 @@ span.CodeMirror-selectedtext {
     width: 50%;
   }
 }
-@keyframes narrowleft {
+@-ms-keyframes expansionleft {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 50%;
+  }
+}
+@keyframes expansionleft {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 50%;
+  }
+}
+.narrowleft {
+  animation: narrowleft 0.5s;
+  -moz-animation: narrowleft 0.5s;
+  -webkit-animation: narrowleft 0.5s;
+  -o-animation: narrowleft 0.5s;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+}
+@-webkit-keyframes narrowleft {
   from {
     width: 100%;
   }
@@ -848,7 +872,7 @@ span.CodeMirror-selectedtext {
     width: 50%;
   }
 }
-@-webkit-keyframes narrowleft {
+@-o-keyframes narrowleft {
   from {
     width: 100%;
   }
@@ -856,7 +880,15 @@ span.CodeMirror-selectedtext {
     width: 50%;
   }
 }
-@-o-keyframes narrowleft {
+@-ms-keyframes narrowleft {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 50%;
+  }
+}
+@keyframes narrowleft {
   from {
     width: 100%;
   }
@@ -870,10 +902,6 @@ span.CodeMirror-selectedtext {
   border-top-right-radius: 5px;
   box-shadow: 3px 2px 5px 7px rgba(0, 0, 0, 0.3);
 }
-#header {
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
 .expansionup {
   animation: expansionup 0.5s;
   -moz-animation: expansionup 0.5s;
@@ -882,7 +910,7 @@ span.CodeMirror-selectedtext {
   animation-fill-mode: forwards;
   -webkit-animation-fill-mode: forwards;
 }
-@keyframes expansionup {
+@-webkit-keyframes expansionup {
   from {
     height: 100%;
   }
@@ -898,7 +926,7 @@ span.CodeMirror-selectedtext {
     height: 36.33333333%;
   }
 }
-@-webkit-keyframes expansionup {
+@-o-keyframes expansionup {
   from {
     height: 100%;
   }
@@ -906,7 +934,15 @@ span.CodeMirror-selectedtext {
     height: 36.33333333%;
   }
 }
-@-o-keyframes expansionup {
+@-ms-keyframes expansionup {
+  from {
+    height: 100%;
+  }
+  to {
+    height: 36.33333333%;
+  }
+}
+@keyframes expansionup {
   from {
     height: 100%;
   }
@@ -922,7 +958,7 @@ span.CodeMirror-selectedtext {
   animation-fill-mode: forwards;
   -webkit-animation-fill-mode: forwards;
 }
-@keyframes tabup {
+@-webkit-keyframes tabup {
   from {
     height: 35px;
   }
@@ -938,7 +974,7 @@ span.CodeMirror-selectedtext {
     height: 0px;
   }
 }
-@-webkit-keyframes tabup {
+@-o-keyframes tabup {
   from {
     height: 35px;
   }
@@ -946,7 +982,15 @@ span.CodeMirror-selectedtext {
     height: 0px;
   }
 }
-@-o-keyframes tabup {
+@-ms-keyframes tabup {
+  from {
+    height: 35px;
+  }
+  to {
+    height: 0px;
+  }
+}
+@keyframes tabup {
   from {
     height: 35px;
   }
@@ -962,7 +1006,7 @@ span.CodeMirror-selectedtext {
   animation-fill-mode: forwards;
   -webkit-animation-fill-mode: forwards;
 }
-@keyframes tabdown {
+@-webkit-keyframes tabdown {
   from {
     height: 0px;
   }
@@ -978,7 +1022,7 @@ span.CodeMirror-selectedtext {
     height: 35px;
   }
 }
-@-webkit-keyframes tabdown {
+@-o-keyframes tabdown {
   from {
     height: 0px;
   }
@@ -986,7 +1030,15 @@ span.CodeMirror-selectedtext {
     height: 35px;
   }
 }
-@-o-keyframes tabdown {
+@-ms-keyframes tabdown {
+  from {
+    height: 0px;
+  }
+  to {
+    height: 35px;
+  }
+}
+@keyframes tabdown {
   from {
     height: 0px;
   }
@@ -1002,7 +1054,7 @@ span.CodeMirror-selectedtext {
   animation-fill-mode: forwards;
   -webkit-animation-fill-mode: forwards;
 }
-@keyframes expansiondown {
+@-webkit-keyframes expansiondown {
   from {
     height: 36.33333333%;
   }
@@ -1018,7 +1070,7 @@ span.CodeMirror-selectedtext {
     height: 100%;
   }
 }
-@-webkit-keyframes expansiondown {
+@-o-keyframes expansiondown {
   from {
     height: 36.33333333%;
   }
@@ -1026,7 +1078,15 @@ span.CodeMirror-selectedtext {
     height: 100%;
   }
 }
-@-o-keyframes expansiondown {
+@-ms-keyframes expansiondown {
+  from {
+    height: 36.33333333%;
+  }
+  to {
+    height: 100%;
+  }
+}
+@keyframes expansiondown {
   from {
     height: 36.33333333%;
   }
