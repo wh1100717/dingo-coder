@@ -171,12 +171,12 @@ module.exports = (grunt) ->
                 files: [{
                     expand: true
                     cwd: "build/"
-                    src: "*.html"
+                    src: "**/*.html"
                     dest: "build/"
                 },{
                     expand: true
                     cwd: "build/js/"
-                    src: "*.js"
+                    src: "**/*.js"
                     dest: "build/js/"
                 }]
                 options: {

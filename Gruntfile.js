@@ -166,12 +166,12 @@ module.exports = function(grunt) {
           {
             expand: true,
             cwd: "build/",
-            src: "*.html",
+            src: "**/*.html",
             dest: "build/"
           }, {
             expand: true,
             cwd: "build/js/",
-            src: "*.js",
+            src: "**/*.js",
             dest: "build/js/"
           }
         ],
