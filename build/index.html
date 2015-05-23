@@ -38,8 +38,6 @@
     <div style="height:20px;width:100%"></div>
     <div id="wrap">
         <dingo-coder
-            title="Dingo Coder"
-            icon="http://dingo.emptystack.net/img/logo.png"
             layout="1">
             <textarea code="html" style="display: none">
                 <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
@@ -85,6 +83,9 @@
             </textarea>
         </dingo-coder>
     </div>
+    <script type="text/javascript">
+        window.addEventListener("message", function(e){console.log(e)})
+    </script>
 
 </body>
 </html>
