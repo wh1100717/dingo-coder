@@ -64,7 +64,7 @@ do ->
         sendMessage(code, callback)
 
     Polymer "dingo-coder", {
-        icon:"/img/logo.png"
+        icon:"./img/logo.png"
         name: "Dingo Coder"
         layout: 1
         ready: ->

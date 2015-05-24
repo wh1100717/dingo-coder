@@ -21,5 +21,4 @@ define (require, exports, module) ->
             console.log "From postMessage", Dingo.element
             new Editor($("#editor"), Dingo.element, Service)
 
-
     module.exports = Dingo

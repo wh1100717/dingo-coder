@@ -72,7 +72,7 @@
     return sendMessage(code, callback);
   };
   return Polymer("dingo-coder", {
-    icon: "/img/logo.png",
+    icon: "./img/logo.png",
     name: "Dingo Coder",
     layout: 1,
     ready: function() {
