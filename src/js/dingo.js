@@ -4,7 +4,7 @@ define(function(require, exports, module) {
   var Dingo, Editor, Mode, Service, bind;
   Editor = require("./editor");
   Mode = require("./module/mode");
-  Service = {};
+  Service = require("./service/service");
   window.service = Service;
   bind = function(el, eve, fn, priority) {
     var _isIE;
@@ -16,7 +16,7 @@ define(function(require, exports, module) {
     return bind(window, "message", function(e) {
       Dingo.element = JSON.parse(e.data);
       console.log("From postMessage", Dingo.element);
-      return new Editor($("#editor"), Dingo.element);
+      return new Editor($("#editor"), Dingo.element, Service);
     });
   };
   return module.exports = Dingo;

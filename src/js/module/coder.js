@@ -113,32 +113,93 @@ define(function(require, exports, module) {
         };
       })(this));
       this.container.find(".login").on("click", function() {
-        self.container.find(".type").toggleClass("typedown");
         if (self.container.find(".type").hasClass("typedown")) {
-          self.container.find(".type").animate({
-            "margin-top": "10%"
-          }, 500);
-          return self.container.find(".signinput").animate({
-            "margin-top": "40%"
-          }, 500);
+          self.container.find(".type .row").animate({
+            "top": "10%"
+          }, 300);
+          self.container.find(".signinput").animate({
+            "margin-top": "-60%"
+          }, 500).addClass("show");
+          self.container.find(".signupput").animate({
+            "margin-top": "-60%",
+            "margin-left": "105%"
+          }, 0);
+          return self.container.find(".type").removeClass("typedown");
         } else {
-          self.container.find(".type").animate({
-            "margin-top": "50%"
-          }, 500);
-          return self.container.find(".signinput").animate({
-            "margin-top": "100%"
-          }, 500);
+          if (self.container.find(".signinput").hasClass("show")) {
+            self.container.find(".type .row").animate({
+              "top": "50%"
+            }, 500);
+            self.container.find(".signinput").animate({
+              "margin-top": "0"
+            }, 500).removeClass("show");
+            self.container.find(".signupput").animate({
+              "margin-top": "0",
+              "margin-left": "5%"
+            }, 0);
+            return self.container.find(".type").addClass("typedown");
+          } else {
+            self.container.find(".signupput").animate({
+              "margin-left": "105%"
+            }, 500).removeClass("show");
+            return self.container.find(".signinput").animate({
+              "margin-left": "5%"
+            }, 500).addClass("show");
+          }
         }
       });
-      this.container.find("#login").on("click", function() {
+      this.container.find(".signup").on("click", function() {
+        if (self.container.find(".type").hasClass("typedown")) {
+          self.container.find(".type .row").animate({
+            "top": "10%"
+          }, 300);
+          self.container.find(".signupput").animate({
+            "margin-top": "-60%"
+          }, 500).addClass("show");
+          self.container.find(".signinput").animate({
+            "margin-top": "-60%",
+            "margin-left": "-95%"
+          }, 0);
+          return self.container.find(".type").removeClass("typedown");
+        } else {
+          if (self.container.find(".signupput").hasClass("show")) {
+            self.container.find(".type .row").animate({
+              "top": "50%"
+            }, 500);
+            self.container.find(".signupput").animate({
+              "margin-top": "0"
+            }, 500).removeClass("show");
+            self.container.find(".signinput").animate({
+              "margin-top": "0",
+              "margin-left": "5%"
+            }, 0);
+            return self.container.find(".type").addClass("typedown");
+          } else {
+            self.container.find(".signupput").animate({
+              "margin-left": "5%"
+            }, 500).addClass("show");
+            return self.container.find(".signinput").animate({
+              "margin-left": "-95%"
+            }, 500).removeClass("show");
+          }
+        }
+      });
+      this.container.find("#signin").on("click", function() {
         var email, password;
-        email = self.container.find("input[type='mail']").val();
-        password = self.container.find("input[type='password']").val();
+        email = self.container.find("input[type ='mail']").val();
+        password = self.container.find("input[type ='password']").val();
         return self.editor.service.authService.login(email, password, function(error, data) {
           return console.log(error);
         });
       });
-      return this.container.find(".signup").on("click", function() {});
+      return this.container.find("#signup").on("click", function() {
+        var email, password;
+        email = self.container.find("input[type = 'mailsignup']").val();
+        password = self.container.find("input[type = 'passwordsignup']").val();
+        return self.editor.service.authService.register(email, password, function(error, data) {
+          return console.log(error);
+        });
+      });
     };
 
     return Coder;

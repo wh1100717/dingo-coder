@@ -1110,14 +1110,25 @@ span.CodeMirror-selectedtext {
   left: 0;
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 10;
+  overflow: hidden;
 }
 .type {
-  margin-top: 50%;
+  height: 100%;
   width: :100%;
+  position: relative;
+}
+.type .row {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  margin: auto;
+  margin-top: -16px;
+  bottom: 0px;
+}
+.type .row > div {
   text-align: center;
 }
 .type img {
-  margin: 0px 30px;
   cursor: pointer;
 }
 .col-sm-4 {
@@ -1127,15 +1138,18 @@ span.CodeMirror-selectedtext {
 .signinput {
   position: absolute;
   text-align: center;
-  margin: 100% 20px 0px 20px;
+  margin: 0px 5%;
   height: 50%;
+  width: 90%;
 }
-.signinput .input-group {
+.signinput .input-group,
+.signupput .input-group {
   margin-bottom: 30px;
 }
 .signupput {
   position: absolute;
-  text-indent: center;
-  margin: 100% 20px 0px 20px;
+  text-align: center;
+  margin: 0% 5%;
   height: 50%;
+  width: 90%;
 }

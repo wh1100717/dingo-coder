@@ -78,20 +78,49 @@ define (require, exports, module) ->
                 self.editor.layout.set_layout()
 
             @container.find(".login").on "click", ->
-                self.container.find(".type").toggleClass("typedown")
                 if self.container.find(".type").hasClass("typedown")
-                    self.container.find(".type").animate({"margin-top":"10%"},500)
-                    self.container.find(".signinput").animate({"margin-top": "40%"},500)
+                    self.container.find(".type .row").animate({"top":"10%"},300)
+                    self.container.find(".signinput").animate({"margin-top": "-60%"},500).addClass("show")
+                    self.container.find(".signupput").animate({"margin-top":"-60%";"margin-left":"105%"},0)
+                    self.container.find(".type").removeClass("typedown")
                 else
-                    self.container.find(".type").animate({"margin-top":"50%"},500)
-                    self.container.find(".signinput").animate({"margin-top":"100%"},500)
-
-            @container.find("#login").on "click", ->
-                email = self.container.find("input[type='mail']").val()
-                password = self.container.find("input[type='password']").val()
-                self.editor.service.authService.login(email, password, (error, data) -> console.log error)
+                    if (self.container.find(".signinput").hasClass("show"))
+                        self.container.find(".type .row").animate({"top":"50%"},500)
+                        self.container.find(".signinput").animate({"margin-top":"0"},500).removeClass("show")
+                        self.container.find(".signupput").animate({"margin-top":"0";"margin-left":"5%"},0)
+                        self.container.find(".type").addClass("typedown")
+                    else
+                        self.container.find(".signupput").animate({"margin-left":"105%"},500).removeClass("show")
+                        self.container.find(".signinput").animate({"margin-left":"5%"},500).addClass("show")
 
             @container.find(".signup").on "click", ->
+                if self.container.find(".type").hasClass("typedown")
+                    self.container.find(".type .row").animate({"top":"10%"},300)
+                    self.container.find(".signupput").animate({"margin-top": "-60%"},500).addClass("show")
+                    self.container.find(".signinput").animate({"margin-top":"-60%";"margin-left":"-95%"},0)
+                    self.container.find(".type").removeClass("typedown")
+                else
+                    if(self.container.find(".signupput").hasClass("show"))
+                        self.container.find(".type .row").animate({"top":"50%"},500)
+                        self.container.find(".signupput").animate({"margin-top":"0"},500).removeClass("show")
+                        self.container.find(".signinput").animate({"margin-top":"0";"margin-left":"5%"},0)
+                        self.container.find(".type").addClass("typedown")
+                    else
+                        self.container.find(".signupput").animate({"margin-left":"5%"},500).addClass("show")
+                        self.container.find(".signinput").animate({"margin-left":"-95%"},500).removeClass("show")
+
+            @container.find("#signin").on "click", ->
+                email = self.container.find("input[type ='mail']").val()
+                password = self.container.find("input[type ='password']").val()
+                self.editor.service.authService.login(email, password, (error, data) -> console.log error)
+
+            @container.find("#signup").on "click", ->
+                email = self.container.find("input[type = 'mailsignup']").val()
+                password = self.container.find("input[type = 'passwordsignup']").val()
+                self.editor.service.authService.register(email, password, (error, data) -> console.log error)
+
+
+
 
 
 

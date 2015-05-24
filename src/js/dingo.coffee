@@ -3,8 +3,8 @@ define (require, exports, module) ->
 
     Editor = require("./editor")
     Mode = require("./module/mode")
-    # Service = require("./service/service")
-    Service = {}
+    Service = require("./service/service")
+    # Service = {}
 
     #For Test
     window.service = Service
@@ -19,7 +19,7 @@ define (require, exports, module) ->
         bind window, "message", (e) ->
             Dingo.element = JSON.parse e.data
             console.log "From postMessage", Dingo.element
-            new Editor($("#editor"), Dingo.element)
+            new Editor($("#editor"), Dingo.element, Service)
 
 
     module.exports = Dingo
