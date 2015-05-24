@@ -898,9 +898,6 @@ span.CodeMirror-selectedtext {
 }
 #editor {
   height: 100%;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  box-shadow: 3px 2px 5px 7px rgba(0, 0, 0, 0.3);
 }
 .expansionup {
   animation: expansionup 0.5s;
@@ -1155,4 +1152,16 @@ span.CodeMirror-selectedtext {
   margin: 0% 5%;
   height: 50%;
   width: 90%;
+}
+#wrap {
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+}
+#editor #content .panel {
+  border: none;
+  border-radius: 0px;
+}
+#container {
+  box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.5);
 }
