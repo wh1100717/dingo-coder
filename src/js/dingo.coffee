@@ -16,10 +16,14 @@ define (require, exports, module) ->
     Dingo = {}
 
     Dingo.init = ->
-        bind window, "message", (e) ->
-            Dingo.element = JSON.parse e.data
-            console.log "From postMessage", Dingo.element
+        flag = false
+        init_interval = setInterval ->
+            console.log "init_interval"
+            return if not window._dingo_element?
+            clearInterval(init_interval)
+            Dingo.element = window._dingo_element
             new Editor($("#editor"), Dingo.element, Service)
+        , 100
 
 
     module.exports = Dingo

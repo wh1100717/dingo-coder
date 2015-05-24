@@ -13,11 +13,17 @@ define(function(require, exports, module) {
   };
   Dingo = {};
   Dingo.init = function() {
-    return bind(window, "message", function(e) {
-      Dingo.element = JSON.parse(e.data);
-      console.log("From postMessage", Dingo.element);
+    var flag, init_interval;
+    flag = false;
+    return init_interval = setInterval(function() {
+      console.log("init_interval");
+      if (window._dingo_element == null) {
+        return;
+      }
+      clearInterval(init_interval);
+      Dingo.element = window._dingo_element;
       return new Editor($("#editor"), Dingo.element, Service);
-    });
+    }, 100);
   };
   return module.exports = Dingo;
 });
