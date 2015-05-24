@@ -1142,6 +1142,9 @@ span.CodeMirror-selectedtext {
   height: 50%;
   width: 90%;
 }
+.signinput button {
+  margin-left: 30px;
+}
 .signinput .input-group,
 .signupput .input-group {
   margin-bottom: 30px;
