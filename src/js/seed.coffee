@@ -8,7 +8,7 @@ do ->
         flag = true
         window._dingo_element = JSON.parse e.data
         console.log "From postMessage", window._dingo_element
-        
+
 require.config {
     paths: {
         codemirror: "./vendor/codemirror"

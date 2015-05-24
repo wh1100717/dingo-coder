@@ -16,6 +16,11 @@ define(function(require, exports, module) {
       this.ifr = new Iframe(this);
       this.coder = new Coder(this);
       this.layout = new Layout(this);
+      if (this.element.code === false) {
+        $(".iframeread.active").click();
+      } else if (this.element.preview === false) {
+        $(".coderead.active").click();
+      }
     }
 
     Editor.prototype.set_editor = function(type, val) {
