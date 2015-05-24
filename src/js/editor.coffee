@@ -14,6 +14,10 @@ define (require, exports, module) ->
             @ifr = new Iframe(@)
             @coder = new Coder(@)
             @layout = new Layout(@)
+            if @element.code is false
+                $(".iframeread.active").click()
+            else if @element.preview is false
+                $(".coderead.active").click()
 
         set_editor: (type, val) -> @["#{type}_editor"].getDoc().setValue(val)
 
