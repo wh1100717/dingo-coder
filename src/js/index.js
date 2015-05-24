@@ -58,9 +58,17 @@
     window.ifrWin = ifrWin;
     try {
       ifrWin.document;
-      return bind(Dingo.iframe, "load", function() {
+      bind(Dingo.iframe, "load", function() {
         return ifrWin.postMessage(data, Dingo.server);
       });
+
+      /*
+       *  在同域下，即使页面完成加载仍然可以获取到ifrWin.document
+       *  但是页面已经加载完了，load事件不会再执行会导致postMessage没有发出去
+       *  所以除了绑定load事件外也直接发送postMessage请求
+       *  对应Iframe里面事件绑定改为once类型
+       */
+      return ifrWin.postMessage(data, Dingo.server);
     } catch (_error) {
       e = _error;
       return ifrWin.postMessage(data, Dingo.server);
