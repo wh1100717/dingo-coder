@@ -16,6 +16,8 @@ define (require, exports, module) ->
             @container.find("#mode-tabs").removeClass("tabup tabdown")
             switch @element.layout
                 when 1
+                    if (@container.find("#render-panel").hasClass("expansion"))
+                        @container.find(".iframeread").trigger "click"
                     @container.find("#mode-tabs").removeClass("tabup").addClass("tabdown")
                     @container.find(".CodeMirror").removeClass("expansionup").addClass("expansiondown")
                     @container.find(".mode-tab").removeClass("active")
@@ -23,6 +25,8 @@ define (require, exports, module) ->
                 when 2
                     # 也要判断下有没三块
                     if @editor.coder.typelist.length > 2
+                        if (@container.find("#render-panel").hasClass("expansion"))
+                            @container.find(".iframeread").trigger "click"
                         @container.find("#mode-tabs #file-dropdown-toggle #file-dropdown").hide()
                         @container.find(".CodeMirror").show().addClass("expansionup")
                         @container.find("#mode-tabs").addClass("tabup")
@@ -37,6 +41,10 @@ define (require, exports, module) ->
                     @container.find("#mode-tabs #file-dropdown-toggle #file-dropdown").hide()
                     @outerheight = @container.find("#code-editor").height()
                     if @editor.coder.typelist.length > 2 and @editor.ifr.ifr isnt null
+                        if (@container.find("#render-panel").hasClass("expansion"))
+                            @container.find(".iframeread").trigger "click"
+                        if (@container.find("#code-panel").hasClass("expansion"))
+                            @container.find(".coderead").trigger "click"
                         @outerheight = (@outerheight + 35) / 2
                         @container.find(".CodeMirror").eq(0).show().removeClass("expansionup").css("height","#{@outerheight}")
                         @container.find(".CodeMirror").eq(1).show().removeClass("expansionup").css("height","#{@outerheight}")
@@ -48,6 +56,11 @@ define (require, exports, module) ->
                         @set_layout()
                 when 4
                     if @editor.coder.typelist.length > 2 and @editor.ifr.ifr isnt null
+                        if (@container.find("#code-panel").hasClass("expansion"))
+                            @container.find("#renderer-container").children().eq(2).insertAfter(@container.find("#code-editor .CodeMirror").eq(1))
+                            @container.find("#renderer-container").children().eq(1).insertAfter(@container.find("#code-editor .CodeMirror").eq(1))
+                            @element.layout++
+                            @set_layout()
                         @container.find("#renderer-container").children().eq(2).insertAfter(@container.find("#code-editor .CodeMirror").eq(1))
                         @container.find("#renderer-container").children().eq(1).insertAfter(@container.find("#code-editor .CodeMirror").eq(1))
                         @container.find(".renderer").css({"height":"100%"})

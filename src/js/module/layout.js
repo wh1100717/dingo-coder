@@ -18,6 +18,9 @@ define(function(require, exports, module) {
       this.container.find("#mode-tabs").removeClass("tabup tabdown");
       switch (this.element.layout) {
         case 1:
+          if (this.container.find("#render-panel").hasClass("expansion")) {
+            this.container.find(".iframeread").trigger("click");
+          }
           this.container.find("#mode-tabs").removeClass("tabup").addClass("tabdown");
           this.container.find(".CodeMirror").removeClass("expansionup").addClass("expansiondown");
           this.container.find(".mode-tab").removeClass("active");
@@ -25,6 +28,9 @@ define(function(require, exports, module) {
           break;
         case 2:
           if (this.editor.coder.typelist.length > 2) {
+            if (this.container.find("#render-panel").hasClass("expansion")) {
+              this.container.find(".iframeread").trigger("click");
+            }
             this.container.find("#mode-tabs #file-dropdown-toggle #file-dropdown").hide();
             this.container.find(".CodeMirror").show().addClass("expansionup");
             this.container.find("#mode-tabs").addClass("tabup");
@@ -39,6 +45,12 @@ define(function(require, exports, module) {
           this.container.find("#mode-tabs #file-dropdown-toggle #file-dropdown").hide();
           this.outerheight = this.container.find("#code-editor").height();
           if (this.editor.coder.typelist.length > 2 && this.editor.ifr.ifr !== null) {
+            if (this.container.find("#render-panel").hasClass("expansion")) {
+              this.container.find(".iframeread").trigger("click");
+            }
+            if (this.container.find("#code-panel").hasClass("expansion")) {
+              this.container.find(".coderead").trigger("click");
+            }
             this.outerheight = (this.outerheight + 35) / 2;
             this.container.find(".CodeMirror").eq(0).show().removeClass("expansionup").css("height", "" + this.outerheight);
             this.container.find(".CodeMirror").eq(1).show().removeClass("expansionup").css("height", "" + this.outerheight);
@@ -58,6 +70,12 @@ define(function(require, exports, module) {
           break;
         case 4:
           if (this.editor.coder.typelist.length > 2 && this.editor.ifr.ifr !== null) {
+            if (this.container.find("#code-panel").hasClass("expansion")) {
+              this.container.find("#renderer-container").children().eq(2).insertAfter(this.container.find("#code-editor .CodeMirror").eq(1));
+              this.container.find("#renderer-container").children().eq(1).insertAfter(this.container.find("#code-editor .CodeMirror").eq(1));
+              this.element.layout++;
+              this.set_layout();
+            }
             this.container.find("#renderer-container").children().eq(2).insertAfter(this.container.find("#code-editor .CodeMirror").eq(1));
             this.container.find("#renderer-container").children().eq(1).insertAfter(this.container.find("#code-editor .CodeMirror").eq(1));
             this.container.find(".renderer").css({
