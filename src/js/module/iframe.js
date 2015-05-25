@@ -54,8 +54,10 @@ define(function(require, exports, module) {
 
     Iframe.prototype.remove = function() {
       this.container.find(".coderead").trigger("click");
-      this.container.find(".coderead").unbind();
-      return this.container.find(".iframeread").removeClass("active").unbind();
+      return setTimeout(function() {
+        this.container.find(".coderead").unbind();
+        return this.container.find(".iframeread").removeClass("active").unbind();
+      }, 100);
     };
 
     return Iframe;

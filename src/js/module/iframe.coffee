@@ -37,9 +37,12 @@ define (require, exports, module) ->
                 @ifr.contentWindow.document.body.appendChild(script)
             return
 
-        remove: ->
+        remove: ->  
             @container.find(".coderead").trigger "click"
-            @container.find(".coderead").unbind()
-            @container.find(".iframeread").removeClass("active").unbind()
+            setTimeout ->
+                @container.find(".coderead").unbind()
+                @container.find(".iframeread").removeClass("active").unbind()
+            , 100
+                
 
     module.exports = Iframe
