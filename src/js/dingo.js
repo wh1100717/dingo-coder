@@ -16,12 +16,18 @@ define(function(require, exports, module) {
     var flag, init_interval;
     flag = false;
     return init_interval = setInterval(function() {
+      var style;
       console.log("init_interval");
       if (window._dingo_element == null) {
         return;
       }
       clearInterval(init_interval);
       Dingo.element = window._dingo_element;
+      if (Dingo.element.css != null) {
+        style = document.createElement("style");
+        style.textContent = Dingo.element.css;
+        document.head.appendChild(style);
+      }
       return new Editor($("#editor"), Dingo.element, Service);
     }, 100);
   };

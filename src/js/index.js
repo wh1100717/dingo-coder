@@ -88,6 +88,12 @@
       codes = codeList.getElementsByTagName("textarea");
       for (i = 0, len = codes.length; i < len; i++) {
         code = codes[i];
+        if (code.getAttribute("target") === "css") {
+          Dingo.editor.css = code.value;
+        }
+        if (code.getAttribute("code") == null) {
+          continue;
+        }
         Dingo.editor.codes.push({
           type: code.getAttribute("code"),
           value: code.value

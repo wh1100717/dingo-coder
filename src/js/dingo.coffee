@@ -22,6 +22,10 @@ define (require, exports, module) ->
             return if not window._dingo_element?
             clearInterval(init_interval)
             Dingo.element = window._dingo_element
+            if Dingo.element.css?
+                style = document.createElement("style")
+                style.textContent = Dingo.element.css
+                document.head.appendChild(style)
             new Editor($("#editor"), Dingo.element, Service)
         , 100
 

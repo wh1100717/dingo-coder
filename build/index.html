@@ -25,7 +25,7 @@
         font-weight: normal;
         height: 100%;
     }
-    #wrap {
+    .wrap {
         min-height: 100%;
         height: 600px;
         width:950px;
@@ -36,9 +36,8 @@
 </head>
 <body>
     <div style="height:20px;width:100%"></div>
-    <div id="wrap">
-        <dingo-coder
-            layout="1">
+    <div class="wrap">
+        <dingo-coder layout="2" code="false" preview="false">
             <textarea code="html" style="display: none">
                 <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
                 <div class="example">
@@ -71,7 +70,7 @@
 
             </textarea>
             <textarea code="js" style="display:none">
-                console.log(123);
+                console.log(1111);
             </textarea>
             <textarea code="velocity" style="display:none">
                 The RHS can also be a simple arithmetic expression, such as:
@@ -81,8 +80,15 @@
                    Division: #set( $value = $foo / $bar )
                    Remainder: #set( $value = $foo % $bar )
             </textarea>
+            <textarea target="css">
+                #title {
+                    color: red;
+                }
+            </textarea>
         </dingo-coder>
     </div>
+
+
     <script type="text/javascript">
         window.addEventListener("message", function(e){console.log(e)})
     </script>

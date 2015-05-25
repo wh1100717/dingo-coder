@@ -79,6 +79,9 @@ do ->
             codeList.innerHTML = @innerHTML
             codes = codeList.getElementsByTagName("textarea")
             for code in codes
+                if code.getAttribute("target") is "css"
+                    Dingo.editor.css = code.value
+                continue if not code.getAttribute("code")?
                 Dingo.editor.codes.push {
                     type: code.getAttribute("code")
                     value: code.value
