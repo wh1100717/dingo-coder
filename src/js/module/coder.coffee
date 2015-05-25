@@ -80,8 +80,8 @@ define (require, exports, module) ->
             @container.find(".login").on "click", ->
                 if self.container.find(".type").hasClass("typedown")
                     self.container.find(".type .row").animate({"top":"10%"},300)
-                    self.container.find(".signinput").animate({"margin-top": "-60%"},500).addClass("show")
-                    self.container.find(".signupput").animate({"margin-top":"-60%";"margin-left":"105%"},0)
+                    self.container.find(".signinput").animate({"margin-top": "-70%"},500).addClass("show")
+                    self.container.find(".signupput").animate({"margin-top":"-70%";"margin-left":"105%"},0)
                     self.container.find(".type").removeClass("typedown")
                 else
                     if (self.container.find(".signinput").hasClass("show"))
@@ -96,8 +96,8 @@ define (require, exports, module) ->
             @container.find(".signup").on "click", ->
                 if self.container.find(".type").hasClass("typedown")
                     self.container.find(".type .row").animate({"top":"10%"},300)
-                    self.container.find(".signupput").animate({"margin-top": "-60%"},500).addClass("show")
-                    self.container.find(".signinput").animate({"margin-top":"-60%";"margin-left":"-95%"},0)
+                    self.container.find(".signupput").animate({"margin-top": "-70%"},500).addClass("show")
+                    self.container.find(".signinput").animate({"margin-top":"-70%";"margin-left":"-95%"},0)
                     self.container.find(".type").removeClass("typedown")
                 else
                     if(self.container.find(".signupput").hasClass("show"))
@@ -112,12 +112,44 @@ define (require, exports, module) ->
             @container.find("#signin").on "click", ->
                 email = self.container.find("input[type ='mail']").val()
                 password = self.container.find("input[type ='password']").val()
-                self.editor.service.authService.login(email, password, (error, data) -> console.log error)
+                self.editor.service.authService.login(email, password, (error, data) ->
+                    if error isnt null then console.log error
+                    else console.log data)
 
             @container.find("#signup").on "click", ->
                 email = self.container.find("input[type = 'mailsignup']").val()
                 password = self.container.find("input[type = 'passwordsignup']").val()
-                self.editor.service.authService.register(email, password, (error, data) -> console.log error)
+                self.editor.service.authService.register(email, password, (error, data) ->
+                    if error isnt null then console.log error
+                    else self.editor.service.authService.login(email, password, (error, data) ->
+                        if error isnt null then console.log error
+                        else console.log data))
+
+            @container.find(".nameless").on "click", ->
+                self.editor.service.authService.anonymouslogin (error, data) ->
+                    if error isnt null then console.log error
+                    else console.log data
+
+            @container.find("#forget").on "click", ->
+                email = self.container.find("input[type ='mail']").val()
+                self.editor.service.authService.resetPassword(email, (error, data) -> console.log error)
+
+            @container.find(".facebook").on "click", ->
+                self.editor.service.authService.thirdpartylogin("facebook", (error, data) ->
+                    console.log error)
+            @container.find(".github").on "click", ->
+                self.editor.service.authService.thirdpartylogin("github", (error, data) ->
+                    console.log error)
+            @container.find(".twitter").on "click", ->
+                self.editor.service.authService.thirdpartylogin("twitter", (error, data) ->
+                    console.log error)
+            @container.find(".google").on "click", ->
+                self.editor.service.authService.thirdpartylogin("google", (error, data) ->
+                    console.log error)
+
+
+
+
 
 
 

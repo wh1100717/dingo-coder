@@ -24,7 +24,7 @@ define (require, exports, module) ->
 
         refresh: ->
             try
-                console.log @editor
+                # console.log @editor
                 doc = @editor.html_editor.doc.getValue().trim()
                 doc = "<div></div>" if doc is ""
                 @ifr.contentWindow.document.close()
@@ -37,7 +37,7 @@ define (require, exports, module) ->
                 @ifr.contentWindow.document.body.appendChild(script)
             return
 
-        remove: ->  
+        remove: ->
             @container.find(".coderead").trigger "click"
             setTimeout ->
                 @container.find(".coderead").unbind()

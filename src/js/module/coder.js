@@ -118,10 +118,10 @@ define(function(require, exports, module) {
             "top": "10%"
           }, 300);
           self.container.find(".signinput").animate({
-            "margin-top": "-60%"
+            "margin-top": "-70%"
           }, 500).addClass("show");
           self.container.find(".signupput").animate({
-            "margin-top": "-60%",
+            "margin-top": "-70%",
             "margin-left": "105%"
           }, 0);
           return self.container.find(".type").removeClass("typedown");
@@ -154,10 +154,10 @@ define(function(require, exports, module) {
             "top": "10%"
           }, 300);
           self.container.find(".signupput").animate({
-            "margin-top": "-60%"
+            "margin-top": "-70%"
           }, 500).addClass("show");
           self.container.find(".signinput").animate({
-            "margin-top": "-60%",
+            "margin-top": "-70%",
             "margin-left": "-95%"
           }, 0);
           return self.container.find(".type").removeClass("typedown");
@@ -189,14 +189,64 @@ define(function(require, exports, module) {
         email = self.container.find("input[type ='mail']").val();
         password = self.container.find("input[type ='password']").val();
         return self.editor.service.authService.login(email, password, function(error, data) {
-          return console.log(error);
+          if (error !== null) {
+            return console.log(error);
+          } else {
+            return console.log(data);
+          }
         });
       });
-      return this.container.find("#signup").on("click", function() {
+      this.container.find("#signup").on("click", function() {
         var email, password;
         email = self.container.find("input[type = 'mailsignup']").val();
         password = self.container.find("input[type = 'passwordsignup']").val();
         return self.editor.service.authService.register(email, password, function(error, data) {
+          if (error !== null) {
+            return console.log(error);
+          } else {
+            return self.editor.service.authService.login(email, password, function(error, data) {
+              if (error !== null) {
+                return console.log(error);
+              } else {
+                return console.log(data);
+              }
+            });
+          }
+        });
+      });
+      this.container.find(".nameless").on("click", function() {
+        return self.editor.service.authService.anonymouslogin(function(error, data) {
+          if (error !== null) {
+            return console.log(error);
+          } else {
+            return console.log(data);
+          }
+        });
+      });
+      this.container.find("#forget").on("click", function() {
+        var email;
+        email = self.container.find("input[type ='mail']").val();
+        return self.editor.service.authService.resetPassword(email, function(error, data) {
+          return console.log(error);
+        });
+      });
+      this.container.find(".facebook").on("click", function() {
+        return self.editor.service.authService.thirdpartylogin("facebook", function(error, data) {
+          return console.log(error);
+        });
+      });
+      this.container.find(".github").on("click", function() {
+        return self.editor.service.authService.thirdpartylogin("github", function(error, data) {
+          return console.log(error);
+        });
+      });
+      this.container.find(".twitter").on("click", function() {
+        return self.editor.service.authService.thirdpartylogin("twitter", function(error, data) {
+          return console.log(error);
+        });
+      });
+      return this.container.find(".google").on("click", function() {
+        return self.editor.service.authService.thirdpartylogin("google", function(error, data) {
           return console.log(error);
         });
       });

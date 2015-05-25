@@ -36,7 +36,6 @@ define(function(require, exports, module) {
     Iframe.prototype.refresh = function() {
       var doc, script, style;
       try {
-        console.log(this.editor);
         doc = this.editor.html_editor.doc.getValue().trim();
         if (doc === "") {
           doc = "<div></div>";

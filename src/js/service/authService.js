@@ -16,7 +16,7 @@ define(function(require, exports, module) {
      *  resetPassword:  重置密码(会给邮箱发重置密码的邮件)
      */
     function AuthService() {
-      this.authRef = new Firebase("https://dingo-coder.firebaseio.com/");
+      this.authRef = new Firebase("https://dingotest.firebaseio.com/");
     }
 
     AuthService.prototype.getUser = function() {
@@ -39,6 +39,22 @@ define(function(require, exports, module) {
         email: email,
         password: password
       }, function(error, authData) {
+        if (callback != null) {
+          return callback(error, authData);
+        }
+      });
+    };
+
+    AuthService.prototype.thirdpartylogin = function(type, callback) {
+      this.authRef.authWithOAuthPopup(type, function(error, authData) {
+        if (callback != null) {
+          return callback(error, authData);
+        }
+      });
+    };
+
+    AuthService.prototype.anonymouslogin = function(callback) {
+      return this.authRef.authAnonymously(function(error, authData) {
         if (callback != null) {
           return callback(error, authData);
         }

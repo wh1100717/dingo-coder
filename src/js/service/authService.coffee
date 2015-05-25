@@ -15,7 +15,7 @@ define (require, exports, module) ->
          *  resetPassword:  重置密码(会给邮箱发重置密码的邮件)
         ###
         constructor: ->
-            @authRef = new Firebase("https://dingo-coder.firebaseio.com/")
+            @authRef = new Firebase("https://dingotest.firebaseio.com/")
 
         getUser: -> @authRef.getAuth()
 
@@ -32,6 +32,15 @@ define (require, exports, module) ->
                 password: password
             }, (error, authData) -> callback(error, authData) if callback?
             return
+
+        thirdpartylogin: (type, callback) ->
+            @authRef.authWithOAuthPopup type, (error, authData) ->
+                callback(error, authData) if callback?
+            return
+
+        anonymouslogin: (callback) ->
+            @authRef.authAnonymously (error,authData) ->
+                callback(error, authData) if callback?
 
         logout: ->
             @authRef.unauth()
